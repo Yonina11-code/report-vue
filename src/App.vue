@@ -3,7 +3,7 @@
     <nav-items @selectMenu='selectMenu'></nav-items>
     <div class="flex-1 flex-row">
       <div id="main" class="flex-1" style="height:400px;"></div>
-      <el-tabs  tab-position="right">
+      <!-- <el-tabs  tab-position="right">
         <el-tab-pane label="数据设置"></el-tab-pane>
         <el-tab-pane label="基本设置"></el-tab-pane>
         <el-tab-pane label="标题"></el-tab-pane>
@@ -14,7 +14,7 @@
         <el-tab-pane label="序列"></el-tab-pane>
         <el-tab-pane label="高级"></el-tab-pane>
         <el-tab-pane label="扩展插件"></el-tab-pane>
-      </el-tabs>
+      </el-tabs> -->
     </div>
 
   </div>

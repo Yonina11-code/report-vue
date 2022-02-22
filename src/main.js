@@ -7,9 +7,9 @@ import '@/style/index.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.use(echarts)
-// import reports from './components/index'
-// Vue.use(reports)
+Vue.prototype.$echarts = echarts
+import reports from './packages/index'
+Vue.use(reports)
 new Vue({
   render: h => h(App),
 }).$mount('#app')

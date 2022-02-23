@@ -3,7 +3,8 @@
     <nav-items @selectMenu='selectMenu'></nav-items>
     <div class="flex-1 flex-row">
       <div id="main" class="flex-1" style="height:400px;"></div>
-      <y-pie :options="pieOption" :data="pieData"></y-pie>
+      <!-- <y-pie :options="pieOption" :data="Data.pie"></y-pie> -->
+      <y-line :options="pieOption" :data="Data.line"></y-line>
       <!-- <el-tabs  tab-position="right">
         <el-tab-pane label="数据设置"></el-tab-pane>
         <el-tab-pane label="基本设置"></el-tab-pane>
@@ -24,7 +25,7 @@
 <script>
 import navItems from './components/navItems'
 import pieOption from '@/const/pie'
-import pieData from  '/examples/data/pie.js'
+import Data from  '/examples/data/index.js'
 export default {
   name: 'App',
   components: {
@@ -32,7 +33,7 @@ export default {
   },
   data: () => {
     return {
-      pieData: pieData,
+      Data: Data,
       pieOption: pieOption
     }
   },
@@ -42,7 +43,6 @@ export default {
     }
   },
   mounted () {
-    console.log('echarts', pieData)
   }
 }
 </script>

@@ -3,10 +3,12 @@ import echarts from 'echarts'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
 import pie from "./components/pie.vue"
+import line from './components/line.vue'
 
 const components = [
   // columnar,
-  pie
+  pie,
+  line
 ]
 
 function install (Vue) {

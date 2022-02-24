@@ -4,11 +4,17 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
 import pie from "./components/pie.vue"
 import line from './components/line.vue'
+import bar from './components/bar.vue'
+import scatter from './components/scatter.vue'
+import map from './components/map.vue'
 
 const components = [
   // columnar,
   pie,
-  line
+  line,
+  bar,
+  scatter,
+  map
 ]
 
 function install (Vue) {
@@ -24,5 +30,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 export default {
   // columnar,
   pie,
+  line,
+  bar,
   install
 }

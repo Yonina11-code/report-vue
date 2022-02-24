@@ -1,19 +1,19 @@
 <template>
-  <div :ref="'line'+id">
+  <div :ref="'scatter'+id">
 
   </div>
 </template>
 <script>
 import mixins from '../mixins/mixins.js'
 export default {
-  name: 'y-line',
+  name: 'y-scatter',
   mixins: [mixins],
   data() {
     return {
       exDefault: {
         series: [
           {
-            type: 'line',
+            type: 'scatter',
           }
         ],
         yAxis: {

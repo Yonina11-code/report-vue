@@ -3,8 +3,6 @@
     <nav-items @selectMenu='selectMenu'></nav-items>
     <div class="flex-1 flex-row">
       <div id="main" class="flex-1" style="height:400px;"></div>
-      <!-- <y-pie :options="pieOption" :data="Data.pie"></y-pie> -->
-      <y-line :options="pieOption" :data="Data.line"></y-line>
       <!-- <el-tabs  tab-position="right">
         <el-tab-pane label="数据设置"></el-tab-pane>
         <el-tab-pane label="基本设置"></el-tab-pane>
@@ -17,6 +15,13 @@
         <el-tab-pane label="高级"></el-tab-pane>
         <el-tab-pane label="扩展插件"></el-tab-pane>
       </el-tabs> -->
+      <div class="flex">
+        <y-pie :options="Options.pie" :data="Data.pie"></y-pie>
+        <y-line :options="Options.line" :data="Data.line"></y-line>
+        <y-bar :options="Options.bar" :data="Data.line"></y-bar>
+        <y-scatter :options="Options.scatter" :data="Data.line"></y-scatter>
+        <y-map :options="Options.map" :data="Data.map"></y-map>
+      </div>
     </div>
 
   </div>
@@ -24,7 +29,7 @@
 
 <script>
 import navItems from './components/navItems'
-import pieOption from '@/const/pie'
+import Options from '@/const/index'
 import Data from  '/examples/data/index.js'
 export default {
   name: 'App',
@@ -34,7 +39,7 @@ export default {
   data: () => {
     return {
       Data: Data,
-      pieOption: pieOption
+      Options: Options
     }
   },
   methods: {
@@ -55,5 +60,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.flex {
+  display: flex;
+  flex-wrap: wrap
 }
 </style>

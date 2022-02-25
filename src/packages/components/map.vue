@@ -1,11 +1,12 @@
 <template>
-  <div :ref="'map'+id">
+  <div :ref="id">
 
   </div>
 </template>
 <script>
 import mixins from '../mixins/mixins.js'
 const china = require('../const/china.json')
+import '../const/china.js'
 export default {
   name: 'y-map',
   mixins: [mixins],
@@ -13,58 +14,39 @@ export default {
     return {
       exDefault: {
         height: 600,
-        width: 600,
+        width: 800,
         series: [
-          {
-            type: 'map',
-            map: 'china',
-          }
         ]
-        }
+      }
     }
   },
-  created () {
-    this.$echarts.registerMap('china', china)
-  },
   methods: {
-    formatOptionsFunc () {
-      const mapData = this.data[this.options.mapData]
-      let scatterData = this.data[this.options.scatterData]
-      let totalOptions = { ...this.exDefault, ...this.options }
-      this.formatOptions.dataset = this.formatData(scatterData)
-      Object.keys(totalOptions).forEach(key => {
-        if (totalOptions[key] instanceof Array) { // 合并数组配置项
-          let tempArray = []
-          totalOptions[key].forEach((items, index) => {
-            tempArray.push(Object.assign({},  this.exDefault[key] && this.exDefault[key][0], this.options[key] && this.options[key][index]))
-          })
-          this.formatOptions[key] = tempArray
-        } else if (totalOptions[key] instanceof Object) { // 合并对象配置项
-          this.formatOptions[key] = { ...this.exDefault[key], ...this.options[key] }
-        } else {
-          this.formatOptions[key] = this.options[key] || this.exDefault[key]
-        }
-      })
-      console.log('this.formatOptions', this.formatOptions)
-    },
     formatData (data) {
+      // 在地图上生成散点图，value 需要经纬度加value
       let res = []
       let mapData = this.data[this.options.mapData]
-      console.log('data', data)
       for (let item of data) {
-        console.log('i', item)
-        console.log('dataItem', item)
-        var fromCoord = mapData[item.name]
-        var toCoord = mapData[item.name]
-        if (fromCoord && toCoord) {
+        const name =[...mapData[item.name]]
+        if (name) {
+          name.push(item.value)
           res.push({
-            fromName: item.name,
-            toName: item.name,
-            coords: [fromCoord, toCoord],
+            name: item.name,
+            value: name
           })
         }
       }
       return res
+    },
+    draw () {
+      let myChart = this.$echarts.init(this.$refs[`${this.id}`], null, {
+        width: this.formatOptions.width,
+        height: this.formatOptions.height,
+      })
+      let scatterData = this.data[this.options.scatterData]
+      this.formatOptions.series.forEach(item => {
+        item.data = this.formatData(scatterData)
+      })
+      myChart.setOption(this.formatOptions)
     }
   }
 }

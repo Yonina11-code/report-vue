@@ -21,6 +21,7 @@
         <y-bar :options="Options.bar" :data="Data.line"></y-bar>
         <y-scatter :options="Options.scatter" :data="Data.line"></y-scatter>
         <y-map :options="Options.map" :data="Data.map"></y-map>
+        <y-auto-chart :data="Data.formatData"></y-auto-chart>
       </div>
     </div>
 
@@ -30,7 +31,7 @@
 <script>
 import navItems from './components/navItems'
 import Options from '@/const/index'
-import Data from  '/examples/data/index.js'
+import Data from  '../examples/index.js'
 export default {
   name: 'App',
   components: {

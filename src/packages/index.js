@@ -7,6 +7,7 @@ import line from './components/line.vue'
 import bar from './components/bar.vue'
 import scatter from './components/scatter.vue'
 import map from './components/map.vue'
+import autoCharts from './components/auto-chart.vue'
 
 const components = [
   // columnar,
@@ -14,7 +15,8 @@ const components = [
   line,
   bar,
   scatter,
-  map
+  map,
+  autoCharts
 ]
 
 function install (Vue) {

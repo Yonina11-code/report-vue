@@ -1,137 +1,331 @@
 export default {
-  data: [
-    {
-      "id": 101,
-      "title": "商户巡检",
-      "taskTime": 1.0,
-      "createTime": "2019-11-14 08:40:13",
-      "questions": [{
-        "question": "穷且益坚不追请与之"
+  data: [{
+        "id": 195,
+        "commercialNum": "CM02021121603",
+        "commercialName": "非线上非收款码二",
+        "commercialPhone": "",
+        "orgId": 57,
+        "orgName": null,
+        "twoBranch": 4,
+        "branchName": null,
+        "riskType": "004",
+        "warningList": [{
+          "id": 375,
+          "value": "1",
+          "label": "商户地址异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 1,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 376,
+          "value": "2",
+          "label": "pos机异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 2,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
       }, {
-        "question": "老当益壮宁一白首之心"
+        "id": 196,
+        "commercialNum": "CM02021121604",
+        "commercialName": "非线上收款码pos",
+        "commercialPhone": "",
+        "orgId": 57,
+        "orgName": null,
+        "twoBranch": 4,
+        "branchName": null,
+        "riskType": "004",
+        "warningList": [{
+          "id": 375,
+          "value": "1",
+          "label": "商户地址异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 1,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 376,
+          "value": "2",
+          "label": "pos机异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 2,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 378,
+          "value": "4",
+          "label": "营业执照异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 4,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
       }, {
-        "question": "哒哒哒"
-      }]
-    }, {
-      "id": 102,
-      "title": "POS巡检",
-      "taskTime": 1.0,
-      "createTime": "2019-11-14 08:40:26",
-      "questions": [{
-        "question": "测试话术3"
+        "id": 197,
+        "commercialNum": "CM02021121607",
+        "commercialName": "线上非收款码pos",
+        "commercialPhone": "",
+        "orgId": 57,
+        "orgName": null,
+        "twoBranch": 6,
+        "branchName": null,
+        "riskType": "004",
+        "warningList": [{
+          "id": 376,
+          "value": "2",
+          "label": "pos机异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 2,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 378,
+          "value": "4",
+          "label": "营业执照异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 4,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
       }, {
-        "question": "测试话术2"
+        "id": 198,
+        "commercialNum": "CM02021121612",
+        "commercialName": "线上收款码二",
+        "commercialPhone": "",
+        "orgId": 57,
+        "orgName": null,
+        "twoBranch": 11,
+        "branchName": null,
+        "riskType": "004",
+        "warningList": [{
+          "id": 375,
+          "value": "1",
+          "label": "商户地址异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 1,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 376,
+          "value": "2",
+          "label": "pos机异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 2,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
       }, {
-        "question": "测试话术1"
-      }]
-    }, {
-      "id": 103,
-      "title": "wer",
-      "taskTime": 1.0,
-      "createTime": "2019-11-15 08:21:02",
-      "questions": []
-    }, {
-      "id": 105,
-      "title": "商户+POS",
-      "taskTime": 1.0,
-      "createTime": "2019-11-14 08:41:51",
-      "questions": []
-    }, {
-      "id": 108,
-      "title": "商户培训",
-      "taskTime": 3.0,
-      "createTime": "2021-02-02 06:38:31",
-      "questions": []
-    }, {
-      "id": 109,
-      "title": "资料传递",
-      "taskTime": 1.0,
-      "createTime": "2021-07-07 06:52:16",
-      "questions": []
-    }, {
-      "id": 110,
-      "title": "故障处理",
-      "taskTime": 30.0,
-      "createTime": "2021-09-18 02:23:58",
-      "questions": []
-    }, {
-      "id": 111,
-      "title": "耗材配送",
-      "taskTime": 90.0,
-      "createTime": "2021-09-18 02:24:09",
-      "questions": []
-    }, {
-      "id": 119,
-      "title": "装机",
-      "taskTime": 2.0,
-      "createTime": "2021-06-08 02:09:11",
-      "questions": []
-    }, {
-      "id": 120,
-      "title": "撤机",
-      "taskTime": 1.0,
-      "createTime": "2021-06-08 02:09:17",
-      "questions": []
-    }, {
-      "id": 121,
-      "title": "新装设备",
-      "taskTime": 2.0,
-      "createTime": "2021-06-09 01:52:26",
-      "questions": []
-    }, {
-      "id": 122,
-      "title": "商户撤机",
-      "taskTime": 2.0,
-      "createTime": "2021-06-09 01:52:34",
-      "questions": []
-    }, {
-      "id": 123,
-      "title": "机具替换",
-      "taskTime": 30.0,
-      "createTime": "2021-08-02 05:46:58",
-      "questions": []
-    }, {
-      "id": 124,
-      "title": "任务0914",
-      "taskTime": 30.0,
-      "createTime": "2021-09-14 10:00:35",
-      "questions": []
-    }, {
-      "id": 125,
-      "title": "商户-运城",
-      "taskTime": 90.0,
-      "createTime": "2021-09-18 02:26:54",
-      "questions": []
-    }, {
-      "id": 126,
-      "title": "巡检（季度）",
-      "taskTime": 91.0,
-      "createTime": "2021-09-18 02:30:01",
-      "questions": []
-    }, {
-      "id": 127,
-      "title": "巡检-马宁",
-      "taskTime": 60.0,
-      "createTime": "2021-09-18 02:30:52",
-      "questions": []
-    }, {
-      "id": 128,
-      "title": "商户-运城",
-      "taskTime": 90.0,
-      "createTime": "2021-09-18 02:32:00",
-      "questions": []
-    }, {
-      "id": 129,
-      "title": "超时任务",
-      "taskTime": 1.0,
-      "createTime": "2021-10-12 08:19:33",
-      "questions": []
-    }, {
-      "id": 131,
-      "title": "替换测试1",
-      "taskTime": 30.0,
-      "createTime": "2021-12-16 09:24:13",
-      "questions": []
-    }
-]
+        "id": 199,
+        "commercialNum": "CM0123456789000",
+        "commercialName": "VansMall",
+        "commercialPhone": "15678904590",
+        "orgId": 59,
+        "orgName": null,
+        "twoBranch": 2,
+        "branchName": null,
+        "riskType": "003",
+        "warningList": [{
+          "id": 375,
+          "value": "1",
+          "label": "商户地址异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 1,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 376,
+          "value": "2",
+          "label": "pos机异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 2,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 378,
+          "value": "4",
+          "label": "营业执照异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 4,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
+      }, {
+        "id": 200,
+        "commercialNum": "CM0123451234500",
+        "commercialName": "线上小店",
+        "commercialPhone": "15555308000",
+        "orgId": 57,
+        "orgName": null,
+        "twoBranch": 2,
+        "branchName": null,
+        "riskType": "004",
+        "warningList": [{
+          "id": 375,
+          "value": "1",
+          "label": "商户地址异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 1,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 376,
+          "value": "2",
+          "label": "pos机异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 2,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 378,
+          "value": "4",
+          "label": "营业执照异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 4,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
+      }, {
+        "id": 201,
+        "commercialNum": "CM0202112248888",
+        "commercialName": "新装商户机构",
+        "commercialPhone": "",
+        "orgId": 57,
+        "orgName": null,
+        "twoBranch": 2,
+        "branchName": null,
+        "riskType": "004",
+        "warningList": [{
+          "id": 376,
+          "value": "2",
+          "label": "pos机异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 2,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
+      }, {
+        "id": 202,
+        "commercialNum": "CM019900000000",
+        "commercialName": "非线上商户001",
+        "commercialPhone": "",
+        "orgId": 57,
+        "orgName": null,
+        "twoBranch": 2,
+        "branchName": null,
+        "riskType": "004",
+        "warningList": [{
+          "id": 377,
+          "value": "3",
+          "label": "法人身份证异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 3,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 378,
+          "value": "4",
+          "label": "营业执照异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 4,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
+      }, {
+        "id": 203,
+        "commercialNum": "CM0123450000000",
+        "commercialName": "实体无收款码",
+        "commercialPhone": "14444400000",
+        "orgId": 57,
+        "orgName": null,
+        "twoBranch": 2,
+        "branchName": null,
+        "riskType": "003",
+        "warningList": [{
+          "id": 376,
+          "value": "2",
+          "label": "pos机异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 2,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }, {
+          "id": 378,
+          "value": "4",
+          "label": "营业执照异常",
+          "type": "commercialWarningType",
+          "description": "商户异常类型",
+          "sort": 4,
+          "createTime": "2022-01-18 01:38:14",
+          "updateTime": "2022-01-18 01:38:14",
+          "remarks": "商户异常类型",
+          "delFlag": "0"
+        }],
+        "warnings": null
+  }]
 }

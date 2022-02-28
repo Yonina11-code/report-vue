@@ -8,7 +8,9 @@ import bar from './components/bar.vue'
 import scatter from './components/scatter.vue'
 import map from './components/map.vue'
 import autoCharts from './components/auto-chart.vue'
-
+import viewForData from './components/view-for-data.vue'
+import './style/index.css'
+import './assets/iconfont/iconfont.css'
 const components = [
   // columnar,
   pie,
@@ -16,7 +18,8 @@ const components = [
   bar,
   scatter,
   map,
-  autoCharts
+  autoCharts,
+  viewForData
 ]
 
 function install (Vue) {
@@ -34,5 +37,6 @@ export default {
   pie,
   line,
   bar,
+  viewForData,
   install
 }

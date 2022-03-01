@@ -25,7 +25,8 @@ export default {
     datas: {
       handler (val, old) { // 数据更新，相应的视图也要更新
         console.log('data...', val, old)
-        // this.myChart && this.myChart.clear()
+        this.myChart && this.myChart.dispose()
+        this.draw()
         this.formatOptionsFunc() // 格式化数据
       },
       deep: true
@@ -83,6 +84,7 @@ export default {
         }
         console.log('this.formatOptions', this.formatOptions)
       }
+      console.log('this.myChart', this.myChart)
       this.myChart.setOption(this.formatOptions)
     },
     draw () {

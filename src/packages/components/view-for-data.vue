@@ -16,8 +16,8 @@
       </el-tabs>
       <!-- <div class="flex-1 flex-row"> -->
       <div id="main" class="flex-1 flex-row" style="height:400px;">
-        <data-options class="data-options" :attr="attrs" :type="chartType"></data-options>
-        <component :is="componentName" :data="formatData"></component>
+        <data-options class="data-options" :attr="attrs" :type="chartType" @change="settingChange"></data-options>
+        <component :is="componentName" :datas="formatData"></component>
       </div>
       <!-- </div> -->
     </div>
@@ -43,24 +43,12 @@ import dataOptions from './custom/dataOptions'
         required: true
       }
     },
-    computed: {
-      formatData: () => {
-        return {
-          source: [
-            ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
-            ['Matcha Latte', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
-            ['Milk Tea', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
-            ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
-            ['Walnut Brownie', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
-          ]
-        }
-      },
-    },
     data () {
       return {
-        attrs: [], //表格中的属性名及prop
+        attrs: [], // 表格中的属性名及prop
         chartType: '', // 图表类型
-        componentName: 'y-bar'
+        componentName: 'y-bar',
+        formatData: {}
       }
     },
     created () {
@@ -78,6 +66,53 @@ import dataOptions from './custom/dataOptions'
             prop: item.prop
           }
         })
+      },
+      settingChange (value, attr, col) {
+        switch(this.chartType) {
+          case 'bar':
+            this.coordinateAxisFormat(value, attr, col)
+            break
+        }
+      },
+      coordinateAxisFormat (value, attr, col) {
+        let dimensions = []
+        let source = []
+        dimensions.push(attr.prop)
+        this.data.map((item, index) => {
+          for (let i in item) {
+            if (i === attr.prop) {
+              let tempObj = {}
+              tempObj[i] = item[i]
+              source.push(tempObj)
+            }
+          }
+        })
+        switch (col.prop) {
+          case 'x':
+            console.log('formatdata', this.data)
+            if (Object.keys(this.formatData).length) {
+              dimensions.push(...this.dimensions)
+              source.forEach((item, index) => {
+                source[index] = { ...item, ...this.source[index] }
+              })
+            }
+            this.$set(this.formatData, 'dimensions', dimensions)
+            this.$set(this.formatData, 'source', source)
+            console.log('this.formatData', this.formatData)
+            break
+          case 'y':
+            if (!Object.keys(this.formatData).length) {
+              this.formatData.dimensions = dimensions
+              this.formatData.source = source
+            }
+            this.formatData.dimensions.push(...dimensions)
+            this.formatData.source.forEach((item, index) => {
+              this.$set(this.formatData.source, index, { ...item, ...source[index] })
+              // item[attr.prop] = source[index][attr.prop]
+            })
+            console.log('this.formatData', this.formatData)
+            break
+        }
       }
     }
   }

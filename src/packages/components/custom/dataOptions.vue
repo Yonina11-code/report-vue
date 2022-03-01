@@ -1,19 +1,18 @@
 <template>
   <div>
-    <div v-for="(head, index) in tableHeads" :key="index">
-      <div v-if="head.type === type">
-        <el-row class="grid-content bg-purple flex-row-center">
-          <el-col :span="4" v-for="col in head.heads" :key="col.label">{{col.label}}</el-col>
-        </el-row>
-        <el-row v-for="(attrCol, attrIndex) in formatAttr" :key="attrIndex">
-          <el-col :span="4" v-for="(col, colIndex) in attrCol" :key="colIndex">
-            <div v-if="!colIndex">{{col.label}}</div>
-            <el-checkbox v-else></el-checkbox>
-          </el-col>
-
-        </el-row>
-      </div>
-    </div>
+      <el-row class="grid-content bg-purple flex-row-center">
+        <el-col :span="4" v-for="(head, index) in tablehead" :key="index">
+          {{head.label}}
+        </el-col>
+      </el-row>
+    <el-row v-for="(attrCol, attrIndex) in attr" :key="attrIndex">
+      <el-col :span="4">
+        <div>{{attrCol.label}}</div>
+      </el-col>
+      <el-col :span="4" v-for="(head, index) in tablehead" :key="index">
+        <el-checkbox v-if="index" @change="(value) => checkboxChange(value, attrCol, head)"></el-checkbox>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>
@@ -46,7 +45,7 @@ export default {
           ]
         }
       ],
-      formatAttr: []
+      tablehead: [], // 当前图形的表头
     }
 
   },
@@ -62,15 +61,12 @@ export default {
   methods: {
     // 根据图表类型合并表头及属性
     formatMergeHead () {
-      this.formatAttr = this.attr.map(attr => {
-        let temp = [attr]
-        this.tableHeads.map(tableHead => {
-          if (tableHead.type === this.type) {
-            temp.push(...tableHead.heads.filter((item, index) => index !== 0))
-          }
-        })
-        return temp
-      })
+      this.tablehead = this.tableHeads.filter(item => item.type === this.type)[0].heads
+      console.log('formatAttr', this.tablehead)
+    },
+    checkboxChange (value, attr, col) {
+      console.log('checkboxChange', value, attr, col)
+      this.$emit('change', value, attr, col)
     }
   }
 }

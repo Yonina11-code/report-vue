@@ -30,6 +30,9 @@ export default {
         }
     }
   },
+  created () {
+    console.log('y-bar')
+  }
 }
 </script>
 

@@ -10,26 +10,36 @@ export default {
       type: [String, Number],
       default: 0
     },
-    data: {
+    datas: {
       type:  [Array, Object],
       default: () => []
     }
   },
   data: () => {
     return {
-      formatOptions: {}
+      formatOptions: {},
+      myChart: null
+    }
+  },
+  watch: {
+    datas: {
+      handler (val, old) { // 数据更新，相应的视图也要更新
+        console.log('data...', val, old)
+        // this.myChart && this.myChart.clear()
+        this.formatOptionsFunc() // 格式化数据
+      },
+      deep: true
     }
   },
   mounted () {
-    this.formatOptionsFunc() // 格式化数据
     this.draw()
-    console.log('this.options', this.options)
+    this.formatOptionsFunc() // 格式化数据
   },
   methods: {
     formatOptionsFunc () {
       // 将options中的属性拆解出来，与defaulOptions中的值进行合并
       let totalOptions = { ...defaultOptions, ...this.exDefault, ...this.options }
-      this.formatOptions.dataset = this.data
+      this.formatOptions.dataset = this.datas
       Object.keys(totalOptions).forEach(key => {
         if (totalOptions[key] instanceof Array) { // 合并数组配置项
           let tempArray = []
@@ -73,13 +83,14 @@ export default {
         }
         console.log('this.formatOptions', this.formatOptions)
       }
+      this.myChart.setOption(this.formatOptions)
     },
     draw () {
-      let myChart = this.$echarts.init(this.$refs[`${this.exDefault.series[0].type}${this.id}`], null, {
+      this.myChart = this.$echarts.init(this.$refs[`${this.exDefault.series[0].type}${this.id}`], null, {
         width: this.formatOptions.width,
         height: this.formatOptions.height,
       })
-      myChart.setOption(this.formatOptions)
+      console.log('draw', this.formatOptions)
     }
   }
 }

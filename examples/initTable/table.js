@@ -1,7 +1,6 @@
 export default {
   data: [{
         "id": 195,
-        "commercialNum": "CM02021121603",
         "commercialName": "非线上非收款码二",
         "commercialPhone": "",
         "orgId": 57,
@@ -35,7 +34,6 @@ export default {
         "warnings": null
       }, {
         "id": 196,
-        "commercialNum": "CM02021121604",
         "commercialName": "非线上收款码pos",
         "commercialPhone": "",
         "orgId": 57,
@@ -80,7 +78,6 @@ export default {
         "warnings": null
       }, {
         "id": 197,
-        "commercialNum": "CM02021121607",
         "commercialName": "线上非收款码pos",
         "commercialPhone": "",
         "orgId": 57,
@@ -114,7 +111,6 @@ export default {
         "warnings": null
       }, {
         "id": 198,
-        "commercialNum": "CM02021121612",
         "commercialName": "线上收款码二",
         "commercialPhone": "",
         "orgId": 57,
@@ -148,7 +144,6 @@ export default {
         "warnings": null
       }, {
         "id": 199,
-        "commercialNum": "CM0123456789000",
         "commercialName": "VansMall",
         "commercialPhone": "15678904590",
         "orgId": 59,
@@ -193,7 +188,6 @@ export default {
         "warnings": null
       }, {
         "id": 200,
-        "commercialNum": "CM0123451234500",
         "commercialName": "线上小店",
         "commercialPhone": "15555308000",
         "orgId": 57,
@@ -238,7 +232,6 @@ export default {
         "warnings": null
       }, {
         "id": 201,
-        "commercialNum": "CM0202112248888",
         "commercialName": "新装商户机构",
         "commercialPhone": "",
         "orgId": 57,
@@ -261,7 +254,6 @@ export default {
         "warnings": null
       }, {
         "id": 202,
-        "commercialNum": "CM019900000000",
         "commercialName": "非线上商户001",
         "commercialPhone": "",
         "orgId": 57,
@@ -295,7 +287,6 @@ export default {
         "warnings": null
       }, {
         "id": 203,
-        "commercialNum": "CM0123450000000",
         "commercialName": "实体无收款码",
         "commercialPhone": "14444400000",
         "orgId": 57,

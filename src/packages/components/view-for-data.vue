@@ -80,7 +80,7 @@ import dataOptions from './custom/dataOptions'
         }
       },
       coordinateAxisFormat (value, attr, col) {
-        let dimensions = []
+        const dimensions = []
         let source = []
         dimensions.push(attr.prop)
         this.data.map((item, index) => {
@@ -132,10 +132,10 @@ import dataOptions from './custom/dataOptions'
             break
           case 'stack':
             let stacks = []
-            let dimensions = this.formatData.dimensions
+            let dimensionsTemp = this.formatData.dimensions
             if (!this.formatOptions.series) {
-              for (let i = 1; i < dimensions.length; i++) {
-                if (dimensions[i] === attr.prop) {
+              for (let i = 1; i < dimensionsTemp.length; i++) {
+                if (dimensionsTemp[i] === attr.prop) {
                   stacks.push({ type: this.chartType, stack: 'stack' })
                 } else {
                   stacks.push({ type: this.chartType })
@@ -143,10 +143,10 @@ import dataOptions from './custom/dataOptions'
               }
               this.$set(this.formatOptions, 'series', stacks)
             } else {
-              for (let i = 1; i < dimensions.length; i++) {
-                if (dimensions[i] === attr.prop) {
+              for (let j = 1; j < dimensionsTemp.length; j++) {
+                if (dimensionsTemp[j] === attr.prop) {
                   console.log('this.formatOptions.series[index]', this.formatOptions.series)
-                  this.$set(this.formatOptions.series[index], 'stack', 'stack')
+                  this.$set(this.formatOptions.series[j - 1], 'stack', 'stack')
                 }
               }
             }

@@ -17,7 +17,7 @@
       <!-- <div class="flex-1 flex-row"> -->
       <div id="main" class="flex-1 flex-row" style="height:400px;">
         <data-options class="data-options" :attr="attrs" :type="chartType" @change="settingChange"></data-options>
-        <component :is="componentName" :datas="formatData"></component>
+        <component :is="componentName" :data="formatData"></component>
       </div>
       <!-- </div> -->
     </div>
@@ -70,7 +70,11 @@ import dataOptions from './custom/dataOptions'
       settingChange (value, attr, col) {
         switch(this.chartType) {
           case 'bar':
-            this.coordinateAxisFormat(value, attr, col)
+            if (value) {
+              this.coordinateAxisFormat(value, attr, col)
+            } else {
+              this.removeCoordinateAxisFormat(value, attr, col)
+            }
             break
         }
       },
@@ -111,6 +115,26 @@ import dataOptions from './custom/dataOptions'
               // item[attr.prop] = source[index][attr.prop]
             })
             console.log('this.formatData', this.formatData)
+            break
+        }
+      },
+      removeCoordinateAxisFormat (value, attr, col) {
+        console.log('this.removeCoordinateAxisFormat', this.formatData)
+        let dimensions = []
+        let source = []
+        switch (col.prop) {
+          case 'x':
+            break
+          case 'y':
+            dimensions = this.formatData.dimensions.filter(item => item !== attr.prop)
+            this.formatData.source.forEach((item, index) => {
+              for (let value in item) {
+                if (value === attr.prop) {
+                    delete item[value]
+                }
+              }
+            })
+            this.$set(this.formatData, 'dimensions', dimensions)
             break
         }
       }

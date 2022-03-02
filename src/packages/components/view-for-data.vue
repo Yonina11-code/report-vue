@@ -17,7 +17,7 @@
       <!-- <div class="flex-1 flex-row"> -->
       <div id="main" class="flex-1 flex-row" style="height:400px;">
         <data-options class="data-options" :attr="attrs" :type="chartType" @change="settingChange"></data-options>
-        <component :is="componentName" :data="formatData"></component>
+        <component :is="componentName" :data="formatData" :options="formatOptions"></component>
       </div>
       <!-- </div> -->
     </div>
@@ -48,7 +48,8 @@ import dataOptions from './custom/dataOptions'
         attrs: [], // 表格中的属性名及prop
         chartType: '', // 图表类型
         componentName: 'y-bar',
-        formatData: {}
+        formatData: {},
+        formatOptions: {}
       }
     },
     created () {
@@ -93,28 +94,62 @@ import dataOptions from './custom/dataOptions'
         })
         switch (col.prop) {
           case 'x':
-            console.log('formatdata', this.data)
-            if (Object.keys(this.formatData).length) {
-              dimensions.push(...this.dimensions)
-              source.forEach((item, index) => {
-                source[index] = { ...item, ...this.source[index] }
+            console.log('formatdata', dimensions)
+            // 如果之前有删除
+            if (this.formatData.dimensions && !this.formatData.dimensions[0]) {
+              this.$set(this.formatData.dimensions, 0, attr.prop)
+              let deleteObj = Object.keys(this.formatData.source[0])[0]
+              this.formatData.source.forEach((item, index) => {
+                for (let i in item) {
+                  if (i === deleteObj) {
+                    delete item[i] // 删除掉之前的x轴字段
+                  }
+                }
               })
+            } else {
+              if (Object.keys(this.formatData).length) {
+                dimensions.push(...this.dimensions)
+              }
+              console.log('dimensions', dimensions)
+              this.$set(this.formatData, 'dimensions', dimensions)
             }
-            this.$set(this.formatData, 'dimensions', dimensions)
+            source.forEach((item, index) => {
+              source[index] = Object.assign({}, item, this.formatData.source && this.formatData.source[index])
+            })
             this.$set(this.formatData, 'source', source)
-            console.log('this.formatData', this.formatData)
             break
           case 'y':
             if (!Object.keys(this.formatData).length) {
               this.formatData.dimensions = dimensions
               this.formatData.source = source
             }
+            console.log('this.formatData.dimensions', this.formatData)
             this.formatData.dimensions.push(...dimensions)
             this.formatData.source.forEach((item, index) => {
               this.$set(this.formatData.source, index, { ...item, ...source[index] })
-              // item[attr.prop] = source[index][attr.prop]
             })
             console.log('this.formatData', this.formatData)
+            break
+          case 'stack':
+            let stacks = []
+            let dimensions = this.formatData.dimensions
+            if (!this.formatOptions.series) {
+              for (let i = 1; i < dimensions.length; i++) {
+                if (dimensions[i] === attr.prop) {
+                  stacks.push({ type: this.chartType, stack: 'stack' })
+                } else {
+                  stacks.push({ type: this.chartType })
+                }
+              }
+              this.$set(this.formatOptions, 'series', stacks)
+            } else {
+              for (let i = 1; i < dimensions.length; i++) {
+                if (dimensions[i] === attr.prop) {
+                  console.log('this.formatOptions.series[index]', this.formatOptions.series)
+                  this.$set(this.formatOptions.series[index], 'stack', 'stack')
+                }
+              }
+            }
             break
         }
       },
@@ -124,6 +159,14 @@ import dataOptions from './custom/dataOptions'
         let source = []
         switch (col.prop) {
           case 'x':
+            this.formatData.source.forEach((item, index) => {
+              for (let value in item) {
+                if (value === attr.prop) {
+                    item[value] = ''
+                }
+              }
+            })
+            this.$set(this.formatData.dimensions, 0, '')
             break
           case 'y':
             dimensions = this.formatData.dimensions.filter(item => item !== attr.prop)
@@ -135,6 +178,8 @@ import dataOptions from './custom/dataOptions'
               }
             })
             this.$set(this.formatData, 'dimensions', dimensions)
+            break
+          case 'stack':
             break
         }
       }

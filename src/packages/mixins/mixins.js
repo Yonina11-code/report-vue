@@ -30,6 +30,15 @@ export default {
         this.draw()
       },
       deep: true
+    },
+    options: {
+      handler (val, old) {
+        this.formatOptions = {}
+        this.myChart && this.myChart.dispose()
+        this.formatOptionsFunc() // 格式化数据
+        this.draw()
+      },
+      deep: true
     }
   },
   mounted () {

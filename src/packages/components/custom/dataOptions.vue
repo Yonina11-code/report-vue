@@ -9,8 +9,8 @@
       <el-col :span="4">
         <div>{{attrCol.label}}</div>
       </el-col>
-      <el-col :span="4" v-for="(head, index) in tablehead" :key="index">
-        <el-checkbox v-if="index" @change="(value) => checkboxChange(value, attrCol, head)"></el-checkbox>
+      <el-col :span="4" v-for="(head, index) in tablehead" :key="index+type">
+        <el-checkbox v-if="index" ref="checkbox"  @change="(value) => checkboxChange(value, attrCol, head)"></el-checkbox>
       </el-col>
     </el-row>
   </div>
@@ -26,9 +26,10 @@ export default {
   },
   data() {
     return {
+      checkboxValue: false,
       tableHeads: [
         {
-          type: 'bar',
+          type: ['bar', 'line'],
           heads: [{
            label: '字段',
            prop: 'attr'
@@ -42,6 +43,23 @@ export default {
             label: '堆叠项',
             prop: 'stack'
           }
+          ]
+        },
+        {
+          type: ['pie'],
+          heads: [
+            {
+              label: '字段',
+              prop: 'attr'
+            },
+            {
+              label: '类目',
+              prop: 'category'
+            },
+            {
+              label: '对比',
+              prop: 'compare'
+            }
           ]
         }
       ],
@@ -61,7 +79,7 @@ export default {
   methods: {
     // 根据图表类型合并表头及属性
     formatMergeHead () {
-      this.tablehead = this.tableHeads.filter(item => item.type === this.type)[0].heads
+      this.tablehead = this.tableHeads.filter(item => item.type.includes(this.type))[0].heads
       console.log('formatAttr', this.tablehead)
     },
     checkboxChange (value, attr, col) {

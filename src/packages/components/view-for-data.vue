@@ -52,6 +52,12 @@ import dataOptions from './custom/dataOptions'
         formatOptions: {}
       }
     },
+    watch: {
+      chartType (val) {
+        console.log('chartType', val)
+        this.formatData = {}
+      }
+    },
     created () {
       this.getAttributes()
     },
@@ -59,6 +65,7 @@ import dataOptions from './custom/dataOptions'
       selectMenu(index) {
         console.log('index', index)
         this.chartType = index
+        this.componentName = `y-${index}`
       },
       getAttributes () {
         this.attrs = this.options.map(item => {
@@ -71,6 +78,8 @@ import dataOptions from './custom/dataOptions'
       settingChange (value, attr, col) {
         switch(this.chartType) {
           case 'bar':
+          case 'line':
+          case 'pie':
             if (value) {
               this.coordinateAxisFormat(value, attr, col)
             } else {
@@ -94,7 +103,7 @@ import dataOptions from './custom/dataOptions'
         })
         switch (col.prop) {
           case 'x':
-            console.log('formatdata', dimensions)
+          case 'category':
             // 如果之前有删除
             if (this.formatData.dimensions && !this.formatData.dimensions[0]) {
               this.$set(this.formatData.dimensions, 0, attr.prop)
@@ -110,7 +119,6 @@ import dataOptions from './custom/dataOptions'
               if (Object.keys(this.formatData).length) {
                 dimensions.push(...this.dimensions)
               }
-              console.log('dimensions', dimensions)
               this.$set(this.formatData, 'dimensions', dimensions)
             }
             source.forEach((item, index) => {
@@ -119,16 +127,15 @@ import dataOptions from './custom/dataOptions'
             this.$set(this.formatData, 'source', source)
             break
           case 'y':
+          case 'compare':
             if (!Object.keys(this.formatData).length) {
               this.formatData.dimensions = dimensions
               this.formatData.source = source
             }
-            console.log('this.formatData.dimensions', this.formatData)
             this.formatData.dimensions.push(...dimensions)
             this.formatData.source.forEach((item, index) => {
               this.$set(this.formatData.source, index, { ...item, ...source[index] })
             })
-            console.log('this.formatData', this.formatData)
             break
           case 'stack':
             let stacks = []
@@ -145,7 +152,6 @@ import dataOptions from './custom/dataOptions'
             } else {
               for (let j = 1; j < dimensionsTemp.length; j++) {
                 if (dimensionsTemp[j] === attr.prop) {
-                  console.log('this.formatOptions.series[index]', this.formatOptions.series)
                   this.$set(this.formatOptions.series[j - 1], 'stack', 'stack')
                 }
               }
@@ -154,7 +160,6 @@ import dataOptions from './custom/dataOptions'
         }
       },
       removeCoordinateAxisFormat (value, attr, col) {
-        console.log('this.removeCoordinateAxisFormat', this.formatData)
         let dimensions = []
         let source = []
         switch (col.prop) {

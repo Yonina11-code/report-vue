@@ -80,14 +80,22 @@ import dataOptions from './custom/dataOptions'
           case 'bar':
           case 'line':
           case 'pie':
+          case 'scatter':
             if (value) {
               this.coordinateAxisFormat(value, attr, col)
             } else {
               this.removeCoordinateAxisFormat(value, attr, col)
             }
             break
+          case 'map':
+            if (value) {
+              this.addScatterInMap(value, attr, col)
+            } else {
+              this.removeScatterInMap(value, attr, col)
+            }
         }
       },
+      // 添加坐标轴
       coordinateAxisFormat (value, attr, col) {
         const dimensions = []
         let source = []
@@ -159,11 +167,13 @@ import dataOptions from './custom/dataOptions'
             break
         }
       },
+      // 移除坐标轴
       removeCoordinateAxisFormat (value, attr, col) {
         let dimensions = []
         let source = []
         switch (col.prop) {
           case 'x':
+          case 'category':
             this.formatData.source.forEach((item, index) => {
               for (let value in item) {
                 if (value === attr.prop) {
@@ -174,6 +184,7 @@ import dataOptions from './custom/dataOptions'
             this.$set(this.formatData.dimensions, 0, '')
             break
           case 'y':
+          case 'compare':
             dimensions = this.formatData.dimensions.filter(item => item !== attr.prop)
             this.formatData.source.forEach((item, index) => {
               for (let value in item) {
@@ -187,6 +198,14 @@ import dataOptions from './custom/dataOptions'
           case 'stack':
             break
         }
+      },
+      // 在地图上添加散点
+      addScatterInMap () {
+
+      },
+      // 在地图上移除散点
+      removeScatterInMap () {
+
       }
     }
   }

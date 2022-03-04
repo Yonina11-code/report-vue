@@ -7,4 +7,7 @@ export default [{
 },{
   label: '数学',
   prop: 'shuxue'
+},{
+  label: '地区',
+  prop: 'address'
 }]

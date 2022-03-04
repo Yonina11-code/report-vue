@@ -26,6 +26,11 @@ export default {
           type: 'line'
         },
         {
+          name: '散点图',
+          icon: 'iconfont icon-cq-sandiantu',
+          type: 'scatter'
+        },
+        {
           name: '饼图',
           icon: 'iconfont icon-cq-piechat',
           type: 'pie'

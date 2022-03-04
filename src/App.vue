@@ -3,6 +3,7 @@
     <!-- <div class="flex-1 flex-row"> -->
       <!-- <div id="main" class="flex-1" style="height:400px;"></div> -->
     <view-for-data :options="Options" :data="Data"></view-for-data>
+    <!-- <y-map :data="mapData" :options="mapObj"></y-map> -->
     <!-- </div> -->
 
   </div>
@@ -11,12 +12,18 @@
 <script>
 import Options from '../examples/initTable/config.js'
 import Data from  '../examples/initTable/table.js'
+import pieData from '/examples/data/pie.js'
+import mapData from '/examples/data/map.js'
+import mapObj from '@/const//map.js'
 export default {
   name: 'App',
   data: () => {
     return {
       Data: Data,
-      Options: Options
+      Options: Options,
+      pieData: pieData,
+      mapData: mapData,
+      mapObj: mapObj
     }
   },
   methods: {

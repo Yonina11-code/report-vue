@@ -29,7 +29,7 @@ export default {
       checkboxValue: false,
       tableHeads: [
         {
-          type: ['bar', 'line'],
+          type: ['bar', 'line', 'scatter'],
           heads: [{
            label: '字段',
            prop: 'attr'
@@ -57,9 +57,25 @@ export default {
               prop: 'category'
             },
             {
-              label: '对比',
+              label: '比较项',
               prop: 'compare'
             }
+          ]
+        },{
+          type: ['map'],
+          heads: [
+            {
+              label: '字段',
+              prop: 'attr'
+            },
+            {
+              label: '散点',
+              prop: 'scatter'
+            },
+            // {
+            //   label: '比较项',
+            //   prop: 'compare'
+            // }
           ]
         }
       ],

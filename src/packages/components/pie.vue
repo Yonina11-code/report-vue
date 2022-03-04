@@ -22,13 +22,13 @@ export default {
     }
   },
   methods: {
-    draw () {
-      let myChart = this.$echarts.init(this.$refs[`pie${this.id}`], null, {
-        width: this.formatOptions.width,
-        height: this.formatOptions.height,
-      })
-      myChart.setOption(this.formatOptions)
-    }
+    // draw () {
+    //   let myChart = this.$echarts.init(this.$refs[`pie${this.id}`], null, {
+    //     width: this.formatOptions.width,
+    //     height: this.formatOptions.height,
+    //   })
+    //   myChart.setOption(this.formatOptions)
+    // }
   }
 }
 </script>

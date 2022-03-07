@@ -5,5 +5,5 @@
     * 规定关于地区字段必须为： address
     | 字段      | 是否必填 |
     | ----------- | ----------- |
-    | data      | shi       |
+    | data      | 是       |
     | Paragraph   | Text        |

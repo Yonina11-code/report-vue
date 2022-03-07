@@ -89,6 +89,7 @@ import dataOptions from './custom/dataOptions'
             break
           case 'map':
             if (value) {
+              this.getAddressDatas()
               this.addScatterInMap(value, attr, col)
             } else {
               this.removeScatterInMap(value, attr, col)
@@ -199,12 +200,21 @@ import dataOptions from './custom/dataOptions'
             break
         }
       },
+      // 获取数据中每条数据的地区点
+      getAddressDatas () {
+        // 规定地区为name
+        let scatterData = this.data.map(item => {
+          return { name: item.address }
+        })
+
+
+      },
       // 在地图上添加散点
-      addScatterInMap () {
+      addScatterInMap (value, attr, col) {
 
       },
       // 在地图上移除散点
-      removeScatterInMap () {
+      removeScatterInMap (value, attr, col) {
 
       }
     }

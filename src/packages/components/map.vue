@@ -6,6 +6,7 @@
 <script>
 import mixins from '../mixins/mixins.js'
 const china = require('../const/china.json')
+const logLat = require('../const/chinaCity.json')
 import '../const/china.js'
 export default {
   name: 'y-map',
@@ -19,6 +20,9 @@ export default {
         ]
       }
     }
+  },
+  created () {
+    console.log('logLat', logLat)
   },
   methods: {
     formatData (data) {

@@ -8,6 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "province-city-china": "^8.1.0"
+  },
   "dependencies": {}
 }

@@ -27,6 +27,7 @@
 <script>
 import navItems from './custom/navItems'
 import dataOptions from './custom/dataOptions'
+import mapObj from '@/const//map.js'
   export default {
     name: 'view-for-data',
     components: {
@@ -88,11 +89,11 @@ import dataOptions from './custom/dataOptions'
             }
             break
           case 'map':
+            const scatterData = this.getAddressDatas()
             if (value) {
-              this.getAddressDatas()
-              this.addScatterInMap(value, attr, col)
+              this.addScatterInMap(value, attr, col, scatterData)
             } else {
-              this.removeScatterInMap(value, attr, col)
+              this.removeScatterInMap(value, attr, col, scatterData)
             }
         }
       },
@@ -206,12 +207,18 @@ import dataOptions from './custom/dataOptions'
         let scatterData = this.data.map(item => {
           return { name: item.address }
         })
-
+        // this.$set(this.formatOptions, 'scatterData', scatterData)
+        return scatterData
 
       },
       // 在地图上添加散点
-      addScatterInMap (value, attr, col) {
-
+      addScatterInMap (value, attr, col, scatter) {
+        console.log('在地图上添加散点', value, attr, this.data)
+        this.data.forEach((data, index) => {
+          scatter[index].value = data[attr.prop]
+        })
+        this.formatData = scatter
+        this.formatOptions = mapObj
       },
       // 在地图上移除散点
       removeScatterInMap (value, attr, col) {

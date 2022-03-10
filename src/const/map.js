@@ -42,9 +42,11 @@ export default {
           shadowColor: '#fff',
           borderColor: 'yellow'  // 描边颜色
         },
-        label: { // 选中的label样式
-          color: 'blue'
-        }
+        label: {
+          formatter: '{b}',
+          position: 'right',
+          show: true
+        },
       }
     }
   ]

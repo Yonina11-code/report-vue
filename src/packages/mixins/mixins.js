@@ -99,6 +99,7 @@ export default {
         width: this.formatOptions.width,
         height: this.formatOptions.height,
       })
+      console.log('this.data --- mixins', this.myChart)
       console.log('draw', this.formatOptions)
       this.myChart.setOption(this.formatOptions)
     }

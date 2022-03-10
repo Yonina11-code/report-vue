@@ -1,7 +1,7 @@
 <template>
   <div>
       <el-row class="grid-content bg-purple flex-row-center">
-        <el-col :span="4" v-for="(head, index) in tablehead" :key="index">
+        <el-col :span="4" v-for="(head, index) in tablehead.heads" :key="index">
           {{head.label}}
         </el-col>
       </el-row>
@@ -9,8 +9,8 @@
       <el-col :span="4">
         <div>{{attrCol.label}}</div>
       </el-col>
-      <el-col :span="4" v-for="(head, index) in tablehead" :key="index+type">
-        <el-checkbox v-if="index" ref="checkbox"  @change="(value) => checkboxChange(value, attrCol, head)"></el-checkbox>
+      <el-col :span="4" v-for="(head, index) in tablehead.heads" :key="index+type">
+        <el-checkbox v-if="index" ref="checkbox"  :disabled="attrCol.prop === tablehead.disabled" @change="(value) => checkboxChange(value, attrCol, head)"></el-checkbox>
       </el-col>
     </el-row>
   </div>
@@ -63,6 +63,7 @@ export default {
           ]
         },{
           type: ['map'],
+          disabled: 'address',
           heads: [
             {
               label: '字段',
@@ -95,7 +96,7 @@ export default {
   methods: {
     // 根据图表类型合并表头及属性
     formatMergeHead () {
-      this.tablehead = this.tableHeads.filter(item => item.type.includes(this.type))[0].heads
+      this.tablehead = this.tableHeads.filter(item => item.type.includes(this.type))[0]
       console.log('formatAttr', this.tablehead)
     },
     checkboxChange (value, attr, col) {

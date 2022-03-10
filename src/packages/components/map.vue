@@ -1,5 +1,5 @@
 <template>
-  <div :ref="id">
+  <div :ref="'map'+id">
 
   </div>
 </template>
@@ -48,7 +48,7 @@ export default {
       return res
     },
     draw () {
-       this.myChart = this.$echarts.init(this.$refs[`${this.id}`], null, {
+       this.myChart = this.$echarts.init(this.$refs[`map${this.id}`], null, {
         width: this.formatOptions.width,
         height: this.formatOptions.height,
       })
@@ -57,7 +57,7 @@ export default {
       this.formatOptions.series && this.formatOptions.series.forEach(item => {
         item.data = scatterData
       })
-      console.log('this.data', this.formatOptions)
+      console.log('this.data --- map', this.formatOptions)
       this.myChart.setOption(this.formatOptions)
     }
   }

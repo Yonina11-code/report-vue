@@ -3,23 +3,13 @@
     <nav-items class="main-menu" @selectMenu='selectMenu'></nav-items>
     <div class="flex-1">
       <el-tabs  tab-position="">
-        <el-tab-pane label="数据设置"></el-tab-pane>
-        <el-tab-pane label="基本设置"></el-tab-pane>
-        <el-tab-pane label="标题"></el-tab-pane>
-        <el-tab-pane label="坐标轴"></el-tab-pane>
-        <el-tab-pane label="图例"></el-tab-pane>
-        <el-tab-pane label="提示"></el-tab-pane>
-        <el-tab-pane label="工具"></el-tab-pane>
-        <el-tab-pane label="序列"></el-tab-pane>
-        <el-tab-pane label="高级"></el-tab-pane>
-        <el-tab-pane label="扩展插件"></el-tab-pane>
+        <el-tab-pane v-for="(tab, tabIndex) in tabs" :key="tabIndex" :label="tab.label">
+          <div id="main" class="flex-1 flex-row" style="height:400px;">
+          <component :is="tab.components" class="data-options" :attr="attrs" :type="chartType" @change="settingChange"></component>
+          <component :is="componentName" :data="formatData" :options="formatOptions"></component>
+        </div>
+        </el-tab-pane>
       </el-tabs>
-      <!-- <div class="flex-1 flex-row"> -->
-      <div id="main" class="flex-1 flex-row" style="height:400px;">
-        <data-options class="data-options" :attr="attrs" :type="chartType" @change="settingChange"></data-options>
-        <component :is="componentName" :data="formatData" :options="formatOptions"></component>
-      </div>
-      <!-- </div> -->
     </div>
 
   </div>
@@ -27,7 +17,8 @@
 <script>
 import navItems from './custom/navItems'
 import dataOptions from './custom/dataOptions'
-import mapObj from '@/const//map.js'
+import mapObj from '@/const/map.js'
+import baseSettings from './custom/baseSettings'
   export default {
     name: 'view-for-data',
     components: {
@@ -50,13 +41,56 @@ import mapObj from '@/const//map.js'
         chartType: '', // 图表类型
         componentName: 'y-bar',
         formatData: {},
-        formatOptions: {}
+        formatOptions: {},
+        tabs: [
+          {
+            label: '数据设置',
+            components: dataOptions
+          },
+          {
+            label: '基本设置',
+            components: baseSettings
+          },
+          {
+            label: '标题',
+            components: baseSettings
+          },
+          {
+            label: '坐标轴',
+            components: baseSettings
+          },
+          {
+            label: '图例',
+            components: baseSettings
+          },
+          {
+            label: '提示',
+            components: baseSettings
+          },
+          {
+            label: '工具',
+            components: baseSettings
+          },
+          {
+            label: '序列',
+            components: baseSettings
+          },
+          {
+            label: '高级',
+            components: baseSettings
+          },
+          {
+            label: '扩展插件',
+            components: baseSettings
+          }
+        ]
       }
     },
     watch: {
       chartType (val) {
         console.log('chartType', val)
         this.formatData = {}
+        this.formatOptions = {}
       }
     },
     created () {
@@ -213,16 +247,17 @@ import mapObj from '@/const//map.js'
       },
       // 在地图上添加散点
       addScatterInMap (value, attr, col, scatter) {
-        console.log('在地图上添加散点', value, attr, this.data)
         this.data.forEach((data, index) => {
           scatter[index].value = data[attr.prop]
         })
+        console.log('在地图上添加散点', scatter)
         this.formatData = scatter
         this.formatOptions = mapObj
       },
       // 在地图上移除散点
-      removeScatterInMap (value, attr, col) {
-
+      removeScatterInMap (value, attr, col, scatter) {
+        this.formatData = []
+        this.formatOptions = {}
       }
     }
   }

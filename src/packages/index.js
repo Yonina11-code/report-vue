@@ -1,4 +1,5 @@
 // import columnar from "./columnar"
+import Vue from 'vue'
 import echarts from 'echarts'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
@@ -11,6 +12,8 @@ import autoCharts from './components/auto-chart.vue'
 import viewForData from './components/view-for-data.vue'
 import './style/index.css'
 import './assets/iconfont/iconfont.css'
+import formUI from '../packages/components/form-ui/index'
+Vue.use(formUI)
 const components = [
   // columnar,
   pie,
@@ -23,7 +26,6 @@ const components = [
 ]
 
 function install (Vue) {
-  console.log('window', echarts, window)
   components.forEach(component => {
     Vue.component(component.name, component)
   })

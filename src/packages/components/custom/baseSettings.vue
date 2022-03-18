@@ -1,27 +1,25 @@
 <template>
   <div class="form-container">
-    <el-form>
+    <el-form label-position='left' label-width="150px">
       <el-form-item v-for="(obj, index) in ordinateObj" :key="index" :label="obj.label+':'">
-        <component :is="obj.type" :value="obj.prop"></component>
+        <component class="flex-row-center" :is="'Y'+obj.type" :value="form[obj.prop]" :dicData="obj.dicData"></component>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
-import formUi from '../form-ui/index.js'
 export default {
   name: 'baseSettings',
-  components: { YCanvas : formUi.canvas, YColorPicker: formUi.colorPicker },
   data() {
     return {
       ordinateObj: [{
         label: '画布大小',
-        type: 'YCanvas',
+        type: 'Canvas',
         prop: 'canvas'
       },
       {
         label: '背景颜色',
-        type: 'YColorPicker',
+        type: 'ColorPicker',
         prop: 'backgroundColor'
       },
       {
@@ -65,14 +63,12 @@ export default {
           label: '否',
           value: false
         }]
-      }]
+      }],
+      form: {}
     }
 },
 }
 </script>
 
 <style lang="scss" scoped>
-.form-container {
-  padding: 20px;
-}
 </style>

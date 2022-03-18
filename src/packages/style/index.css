@@ -14,3 +14,8 @@
   flex-direction: row;
   align-items: center
 }
+
+.form-container {
+  padding: 20px;
+  height: auto;
+}

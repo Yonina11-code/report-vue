@@ -4,7 +4,7 @@
     <div class="flex-1">
       <el-tabs  tab-position="">
         <el-tab-pane v-for="(tab, tabIndex) in tabs" :key="tabIndex" :label="tab.label">
-          <div id="main" class="flex-1 flex-row" style="height:400px;">
+          <div id="main" class="flex-1 flex-row" >
           <component :is="tab.components" class="data-options" :attr="attrs" :type="chartType" @change="settingChange"></component>
           <component :is="componentName" :data="formatData" :options="formatOptions"></component>
         </div>
@@ -19,11 +19,13 @@ import navItems from './custom/navItems'
 import dataOptions from './custom/dataOptions'
 import mapObj from '@/const/map.js'
 import baseSettings from './custom/baseSettings'
+import titleSetting from './custom/titleSetting'
   export default {
     name: 'view-for-data',
     components: {
       navItems,
-      dataOptions
+      dataOptions,
+      titleSetting
     },
     props: {
       options: {
@@ -53,7 +55,7 @@ import baseSettings from './custom/baseSettings'
           },
           {
             label: '标题',
-            components: baseSettings
+            components: titleSetting
           },
           {
             label: '坐标轴',

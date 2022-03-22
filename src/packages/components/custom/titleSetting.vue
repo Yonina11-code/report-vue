@@ -5,7 +5,7 @@
         <div v-if="obj.objects.length">
           <el-form label-position='left' label-width="150px">
             <el-form-item v-for="(subObj, subIndex) in obj.objects" :key="subIndex" :label="subObj.label+':'">
-              <component :is="'el-input'"></component>
+              <component :is="'Y'+subObj.type" :options="subObj"></component>
             </el-form-item>
           </el-form>
         </div>
@@ -38,6 +38,7 @@ export default {
             {
               label: '主标题文字风格',
               prop: 'textStyle',
+              type: 'collapse',
               objects: [
                 {
                   label: '主标题文字字体粗细',
@@ -46,6 +47,42 @@ export default {
                 },
                 {
                   label: '主标题文字字体大小',
+                  prop: 'fontSize',
+                  type: 'input'
+                },
+                {
+                  label: '行高',
+                  prop: 'lineHeight',
+                  type: 'input'
+                }
+              ]
+            }
+          ]
+        }, {
+          label: '副标题',
+          prop: 'sub',
+          objects: [
+            {
+              label: '副标题名称',
+              prop: 'subtext',
+              type: 'input'
+            },
+            {
+              label: '副标题文本链接',
+              prop: 'sublink',
+              type: 'input'
+            },
+            {
+              label: '副标题文字风格',
+              type: 'collapse',
+              objects: [
+                {
+                  label: '副标题文字字体粗细',
+                  prop: 'fontStyle',
+                  type: 'input'
+                },
+                {
+                  label: '副标题文字字体大小',
                   prop: 'fontSize',
                   type: 'input'
                 },

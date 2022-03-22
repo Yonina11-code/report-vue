@@ -97,10 +97,8 @@ export default {
     // 根据图表类型合并表头及属性
     formatMergeHead () {
       this.tablehead = this.tableHeads.filter(item => item.type.includes(this.type))[0]
-      console.log('formatAttr', this.tablehead)
     },
     checkboxChange (value, attr, col) {
-      console.log('checkboxChange', value, attr, col)
       this.$emit('change', value, attr, col)
     }
   }

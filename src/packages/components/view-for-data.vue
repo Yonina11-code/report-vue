@@ -5,8 +5,15 @@
       <el-tabs  tab-position="">
         <el-tab-pane v-for="(tab, tabIndex) in tabs" :key="tabIndex" :label="tab.label">
           <div id="main" class="flex-1 flex-row" >
-          <component :is="tab.components" class="data-options" :attr="attrs" :type="chartType" @change="settingChange"></component>
-          <component :is="componentName" :data="formatData" :options="formatOptions"></component>
+          <component
+          :is="tab.components"
+          class="data-options"
+          :attr="attrs"
+          :type="chartType"
+          :options="tab.options"
+          @change="settingChange"
+          ></component>
+          <component :is="componentName" :data="formatData" :options="formatData"></component>
         </div>
         </el-tab-pane>
       </el-tabs>
@@ -20,12 +27,17 @@ import dataOptions from './custom/dataOptions'
 import mapObj from '@/const/map.js'
 import baseSettings from './custom/baseSettings'
 import titleSetting from './custom/titleSetting'
+import axisSettings from './custom/axisSettings'
+import formSettings from './custom/formSettings'
+import formOptions from '../const/settingsOption/index.js'
   export default {
     name: 'view-for-data',
     components: {
       navItems,
       dataOptions,
-      titleSetting
+      titleSetting,
+      axisSettings,
+      formSettings
     },
     props: {
       options: {
@@ -59,48 +71,51 @@ import titleSetting from './custom/titleSetting'
           },
           {
             label: '坐标轴',
-            components: baseSettings
+            components: axisSettings
           },
           {
             label: '图例',
-            components: baseSettings
+            components: formSettings,
+            options: formOptions.legendSetting
           },
           {
             label: '提示',
-            components: baseSettings
+            components: formSettings,
+            options: formOptions.tipsSetting
           },
           {
-            label: '工具',
-            components: baseSettings
+            label: '工具栏',
+            components: formSettings,
+            options: formOptions.toolboxSetting
           },
           {
-            label: '序列',
-            components: baseSettings
+            label: '主题配置',
+            components: formSettings,
+            options: formOptions.themeSettings
           },
-          {
-            label: '高级',
-            components: baseSettings
-          },
-          {
-            label: '扩展插件',
-            components: baseSettings
-          }
+          // {
+          //   label: '高级',
+          //   components: baseSettings
+          // },
+          // {
+          //   label: '扩展插件',
+          //   components: baseSettings
+          // }
         ]
       }
     },
     watch: {
       chartType (val) {
-        console.log('chartType', val)
         this.formatData = {}
         this.formatOptions = {}
       }
     },
     created () {
       this.getAttributes()
+      console.log('options', formOptions.themeSettings)
     },
     methods: {
       selectMenu(index) {
-        console.log('index', index)
         this.chartType = index
         this.componentName = `y-${index}`
       },

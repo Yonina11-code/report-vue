@@ -4,13 +4,18 @@ import colorPicker from './colorPicker.vue'
 import displayStyle from './displayStyle.vue'
 import paddingStyle from './paddingStyle.vue'
 import radio from './radio.vue'
+import collapse from './collapse.vue'
+import input from './input.vue'
+
 const components = [
   // columnar,
   canvas,
   colorPicker,
   displayStyle,
   paddingStyle,
-  radio
+  radio,
+  collapse,
+  input
 ]
 function install (Vue) {
   components.forEach(component => {
@@ -27,5 +32,6 @@ export default {
   displayStyle,
   paddingStyle,
   radio,
+  collapse,
   install
 }

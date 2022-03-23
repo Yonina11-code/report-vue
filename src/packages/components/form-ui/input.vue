@@ -1,11 +1,13 @@
 <template>
   <div>
-    <el-input v-model="value" placeholder="请输入内容"></el-input>
+    <el-input v-model="cloneValue" placeholder="请输入内容"></el-input>
   </div>
 </template>
 <script>
+import formMixins from '../../mixins/form.js'
 export default {
   name: 'Yinput',
+  mixins: [formMixins],
   props: {
     options: Object,
     form: Object

@@ -10,7 +10,7 @@ export default {
     },
     cloneValue (val) {
       console.log('cloneValue', val)
-      this.$emit('update:value', val)
+      this.$emit('saveValue', val)
     }
   }
 }

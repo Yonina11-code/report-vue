@@ -1,7 +1,7 @@
 
 import canvas from './canvas.vue'
 import colorPicker from './colorPicker.vue'
-import displayStyle from './displayStyle.vue'
+// import displayStyle from './displayStyle.vue'
 import paddingStyle from './paddingStyle.vue'
 import radio from './radio.vue'
 import collapse from './collapse.vue'
@@ -11,7 +11,7 @@ const components = [
   // columnar,
   canvas,
   colorPicker,
-  displayStyle,
+  // displayStyle,
   paddingStyle,
   radio,
   collapse,
@@ -29,7 +29,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 export default {
   canvas,
   colorPicker,
-  displayStyle,
+  // displayStyle,
   paddingStyle,
   radio,
   collapse,

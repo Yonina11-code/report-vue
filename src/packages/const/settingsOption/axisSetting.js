@@ -86,11 +86,11 @@ export default [
         dicData: [
           {
             label: '是',
-            value: 1
+            value: true
           },
           {
             label: '否',
-            value: 0
+            value: false
           }
         ]
       },

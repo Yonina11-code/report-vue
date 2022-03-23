@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-color-picker v-model="value"></el-color-picker>
+    <!-- <el-color-picker v-model="cloneValue"></el-color-picker> -->
   </div>
 </template>
 <script>
@@ -13,11 +13,6 @@ export default {
     return {
     }
   },
-  watch: {
-    value (val) {
-      this.$emit('input', val)
-    }
-  }
 }
 </script>
 

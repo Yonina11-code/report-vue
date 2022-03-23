@@ -20,9 +20,6 @@ export default {
       type: [Array, Object]
     }
   },
-  created () {
-    console.log('radio', this.value, this.dicData)
-  },
   data () {
     return {
       radio: ''

@@ -95,9 +95,10 @@ export default {
       }
     },
     draw () {
+      const { width, height } = this.formatOptions.canvas || this.formatOptions
       this.myChart = this.$echarts.init(this.$refs[`${this.exDefault.series[0].type}${this.id}`], null, {
-        width: this.formatOptions.width,
-        height: this.formatOptions.height,
+        width: width,
+        height: height,
       })
       console.log('this.data --- mixins', this.myChart)
       console.log('draw', this.formatOptions)

@@ -6,14 +6,15 @@
         <el-tab-pane v-for="(tab, tabIndex) in tabs" :key="tabIndex" :label="tab.label">
           <div id="main" class="flex-1 flex-row" >
           <component
-          :is="tab.components"
-          class="data-options"
-          :attr="attrs"
-          :type="chartType"
-          :options="tab.options"
-          @change="settingChange"
+            :is="tab.components"
+            class="data-options"
+            :attr="attrs"
+            :type="chartType"
+            :options="tab.options"
+            @change="settingChange"
+            @setOptions="handleSetOptions"
           ></component>
-          <component :is="componentName" :data="formatData" :options="formatData"></component>
+          <component :is="componentName" :data="formatData" :options="formatOptions"></component>
         </div>
         </el-tab-pane>
       </el-tabs>
@@ -63,7 +64,8 @@ import formOptions from '../const/settingsOption/index.js'
           },
           {
             label: '基本设置',
-            components: baseSettings
+            components: formSettings,
+            options: formOptions.baseSetting
           },
           {
             label: '标题',
@@ -71,7 +73,8 @@ import formOptions from '../const/settingsOption/index.js'
           },
           {
             label: '坐标轴',
-            components: axisSettings
+            components: axisSettings,
+            options: formOptions.axisSetting
           },
           {
             label: '图例',
@@ -87,11 +90,6 @@ import formOptions from '../const/settingsOption/index.js'
             label: '工具栏',
             components: formSettings,
             options: formOptions.toolboxSetting
-          },
-          {
-            label: '主题配置',
-            components: formSettings,
-            options: formOptions.themeSettings
           },
           // {
           //   label: '高级',
@@ -112,10 +110,31 @@ import formOptions from '../const/settingsOption/index.js'
     },
     created () {
       this.getAttributes()
-      console.log('options', formOptions.themeSettings)
     },
     methods: {
-      selectMenu(index) {
+      // 配置setOption选项
+      handleSetOptions (options) {
+        console.log('options', options)
+        Object.keys(options).forEach(key => {
+          let flag = Object.keys(this.formatOptions).includes(key)
+          if (!flag) {
+            this.$set(this.formatOptions, key, options[key])
+          } else {
+            // 还是个对象
+            console.log(this.formatOptions[key])
+            if (typeof this.formatOptions[key] === 'object') {
+              // options[key] 也肯定是个对象
+                Object.keys(options[key]).forEach(subKey => {
+                  this.$set(this.formatOptions[key], subKey, options[key][subKey])
+                })
+            } else {
+              this.$set(this.formatOptions, key, options[key])
+            }
+          }
+        })
+      },
+      // objectAssign ()
+      selectMenu (index) {
         this.chartType = index
         this.componentName = `y-${index}`
       },
@@ -267,7 +286,6 @@ import formOptions from '../const/settingsOption/index.js'
         this.data.forEach((data, index) => {
           scatter[index].value = data[attr.prop]
         })
-        console.log('在地图上添加散点', scatter)
         this.formatData = scatter
         this.formatOptions = mapObj
       },

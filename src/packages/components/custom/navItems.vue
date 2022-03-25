@@ -57,7 +57,6 @@ export default {
   },
   methods: {
     selectMenu (key, keypath) {
-      console.log('', key, keypath)
       this.activeIndex = key
     },
 

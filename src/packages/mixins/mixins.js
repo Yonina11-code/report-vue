@@ -59,14 +59,12 @@ export default {
           })
           this.formatOptions[key] = tempArray
         } else if (totalOptions[key] instanceof Object) { // 合并对象配置项
-          console.log('', this.options)
           // 此处使用扩展运算符会出错，例：obj === undefined, ...obj[key]---error
           this.formatOptions[key] = Object.assign({}, defaultOptions && defaultOptions[key], this.exDefault && this.exDefault[key], this.options && this.options[key])
         } else {
           this.formatOptions[key] = this.options && this.options[key] || this.exDefault && this.exDefault[key] || defaultOptions && defaultOptions[key]
         }
       })
-      console.log('this.formatOptions', this.formatOptions)
       // 如果没有配置series
       if (!this.options || !this.options.series) {
         // 返回的数据是多行多列的，若有xy轴则要对应的生成多个系列
@@ -100,8 +98,6 @@ export default {
         width: width,
         height: height,
       })
-      console.log('this.data --- mixins', this.myChart)
-      console.log('draw', this.formatOptions)
       this.myChart.setOption(this.formatOptions)
     }
   }

@@ -1,15 +1,23 @@
 {
-  "name": "vue-report",
-  "version": "0.1.0",
-  "private": true,
+  "name": "y-charts-report",
+  "version": "1.1.16",
+  "description": "根据表格数据自定义生成图表",
+  "main": "lib/y-charts-report.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "pub": "vue-cli-service build --target lib --name y-charts-report --dest lib src/packages/index.js && npm publish"
   },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE",
+    "types"
+  ],
   "dependencies": {
     "core-js": "^3.6.5",
-    "echarts": "^5.1.2",
+    "echarts": "^5.3.1",
     "element-ui": "^2.15.3",
     "node-sass": "^4.14.1",
     "utils-lite": "^0.1.15",

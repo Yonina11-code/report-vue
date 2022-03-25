@@ -105,7 +105,7 @@ import formOptions from '../const/settingsOption/index.js'
     watch: {
       chartType (val) {
         this.formatData = {}
-        this.formatOptions = {}
+        // this.formatOptions = {} // 配置项暂不需要重置
       }
     },
     created () {
@@ -114,14 +114,12 @@ import formOptions from '../const/settingsOption/index.js'
     methods: {
       // 配置setOption选项
       handleSetOptions (options) {
-        console.log('options', options)
         Object.keys(options).forEach(key => {
           let flag = Object.keys(this.formatOptions).includes(key)
           if (!flag) {
             this.$set(this.formatOptions, key, options[key])
           } else {
             // 还是个对象
-            console.log(this.formatOptions[key])
             if (typeof this.formatOptions[key] === 'object') {
               // options[key] 也肯定是个对象
                 Object.keys(options[key]).forEach(subKey => {

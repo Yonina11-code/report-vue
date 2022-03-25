@@ -33,7 +33,6 @@ export default {
       type: 'scatter',
       coordinateSystem: 'geo',
       symbolSize: (param) => { // 散点大小
-        console.log('symbolSize', param)
         return param[2]/5
       },
       // 鼠标移入时的高亮

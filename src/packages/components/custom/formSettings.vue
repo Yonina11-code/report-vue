@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <el-form label-position='left' :label-width="options.width+'px' || '250px'">
-      <el-form-item v-for="(obj, index) in options.column" :key="index" :label="obj.label+':'" :label-width="obj.labelWith">
+      <el-form-item v-for="(obj, index) in options.column" :key="index" :label="obj.label+':'" :label-width="obj.labelWith+''">
         <component class="flex-row-center" :is="'Y'+obj.type" :value="form[obj.prop]" :dicData="obj.dicData" @saveValue="(val) => handleSaveValue(obj, val)"></component>
       </el-form-item>
     </el-form>

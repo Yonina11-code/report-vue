@@ -1,25 +1,30 @@
 <template>
-  <div class="view-content flex-row">
-    <nav-items class="main-menu" @selectMenu='selectMenu'></nav-items>
-    <div class="flex-1">
-      <el-tabs  tab-position="">
-        <el-tab-pane v-for="(tab, tabIndex) in tabs" :key="tabIndex" :label="tab.label">
-          <div id="main" class="flex-1 flex-row" >
-          <component
-            :is="tab.components"
-            class="data-options"
-            :attr="attrs"
-            :type="chartType"
-            :options="tab.options"
-            @change="settingChange"
-            @setOptions="handleSetOptions"
-          ></component>
-          <component :is="componentName" :data="formatData" :options="formatOptions"></component>
-        </div>
-        </el-tab-pane>
-      </el-tabs>
+  <div>
+    <div class="view-content flex-row">
+      <nav-items class="main-menu" @selectMenu='selectMenu'></nav-items>
+      <div class="flex-1 flex-row">
+        <el-tabs class="flex-1">
+          <el-tab-pane v-for="(tab, tabIndex) in tabs" :key="tabIndex" :label="tab.label">
+            <div id="main">
+            <component
+              ref="dataOptions"
+              :is="tab.components"
+              class="data-options"
+              :attr="attrs"
+              :type="chartType"
+              :options="tab.options"
+              @change="settingChange"
+              @setOptions="handleSetOptions"
+            ></component>
+          </div>
+          </el-tab-pane>
+        </el-tabs>
+        <component class="flex-1 charts" :is="componentName" ref="report" :data="formatData" :options="formatOptions"></component>
+      </div>
     </div>
-
+    <slot name="button">
+      <el-button type="primary" @click="YSubmit">确 定</el-button>
+    </slot>
   </div>
 </template>
 <script>
@@ -140,6 +145,7 @@ import formOptions from '../const/settingsOption/index.js'
         this.attrs = this.options.map(item => {
           return {
             label: item.label,
+            disabled: false,
             prop: item.prop
           }
         })
@@ -195,9 +201,10 @@ import formOptions from '../const/settingsOption/index.js'
               })
             } else {
               if (Object.keys(this.formatData).length) {
-                dimensions.push(...this.dimensions)
+                this.formatData.dimensions.push(...dimensions)
+              } else {
+                this.$set(this.formatData, 'dimensions', dimensions)
               }
-              this.$set(this.formatData, 'dimensions', dimensions)
             }
             source.forEach((item, index) => {
               source[index] = Object.assign({}, item, this.formatData.source && this.formatData.source[index])
@@ -221,16 +228,22 @@ import formOptions from '../const/settingsOption/index.js'
             if (!this.formatOptions.series) {
               for (let i = 1; i < dimensionsTemp.length; i++) {
                 if (dimensionsTemp[i] === attr.prop) {
-                  stacks.push({ type: this.chartType, stack: 'stack' })
+                  stacks.push({ type: this.chartType, stack: 'stack', prop: attr.prop })
                 } else {
-                  stacks.push({ type: this.chartType })
+                  stacks.push({ type: this.chartType, prop: attr.prop })
                 }
               }
               this.$set(this.formatOptions, 'series', stacks)
             } else {
               for (let j = 1; j < dimensionsTemp.length; j++) {
                 if (dimensionsTemp[j] === attr.prop) {
-                  this.$set(this.formatOptions.series[j - 1], 'stack', 'stack')
+                  console.log('dimensionsTemp[j]', dimensionsTemp[j], this.formatOptions.series)
+                  if (!this.formatOptions.series[j - 1]) { // this.formatOptions.series[j - 1]还是空的配置项
+                   const specialTemp = { type: this.chartType, stack: 'stack', prop: attr.prop }
+                   this.$set(this.formatOptions.series, j - 1, specialTemp)
+                  } else {
+                    this.$set(this.formatOptions.series[j - 1], 'stack', 'stack')
+                  }
                 }
               }
             }
@@ -247,11 +260,12 @@ import formOptions from '../const/settingsOption/index.js'
             this.formatData.source.forEach((item, index) => {
               for (let value in item) {
                 if (value === attr.prop) {
-                    item[value] = ''
+                  delete item[value]
                 }
               }
             })
-            this.$set(this.formatData.dimensions, 0, '')
+            dimensions = this.formatData.dimensions.filter(item => item === attr.prop)
+            this.$set(this.formatData, 'dimensions', dimensions)
             break
           case 'y':
           case 'compare':
@@ -266,6 +280,13 @@ import formOptions from '../const/settingsOption/index.js'
             this.$set(this.formatData, 'dimensions', dimensions)
             break
           case 'stack':
+            const seriesTemp = this.formatOptions.series
+            for (let i = 0; i < seriesTemp.length; i++) {
+              if (seriesTemp[i].prop === attr.prop) {
+                this.$set(this.formatOptions.series[i], 'stack', '')
+                break
+              }
+            }
             break
         }
       },
@@ -291,6 +312,11 @@ import formOptions from '../const/settingsOption/index.js'
       removeScatterInMap (value, attr, col, scatter) {
         this.formatData = []
         this.formatOptions = {}
+      },
+      // 导出文件
+      YSubmit () {
+        console.log('导出', this.formatOptions)
+        console.log('refs', this.$refs.report.formatOptions)
       }
     }
   }
@@ -301,7 +327,13 @@ import formOptions from '../const/settingsOption/index.js'
   padding-top: 40px;
 }
 .data-options {
-  width: 50%;
+  width: 100%;
   height: auto;
+}
+.view-content {
+  width: 95%;
+}
+.charts {
+  margin-left: 5%;
 }
 </style>

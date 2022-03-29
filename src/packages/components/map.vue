@@ -25,7 +25,6 @@ export default {
   methods: {
     formatData (data) {
       if (!(data instanceof Array)) return
-      console.log('data', data)
       // 在地图上生成散点图，value 需要经纬度加value
       let res = []
       let mapData = this.formatMap

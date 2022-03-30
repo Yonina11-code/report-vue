@@ -19,7 +19,13 @@
           </div>
           </el-tab-pane>
         </el-tabs>
-        <component class="flex-1 charts" :is="componentName" ref="report" :data="formatData" :options="formatOptions"></component>
+        <component
+        class="flex-1 charts"
+        :is="componentName"
+        ref="report"
+        :data="formatData"
+        :options="formatOptions"
+        :tableOptions="options"></component>
       </div>
     </div>
     <slot name="button">
@@ -119,16 +125,24 @@ import formOptions from '../const/settingsOption/index.js'
     methods: {
       // 配置setOption选项
       handleSetOptions (options) {
+        console.log('配置setOption选项', options)
         Object.keys(options).forEach(key => {
           let flag = Object.keys(this.formatOptions).includes(key)
           if (!flag) {
             this.$set(this.formatOptions, key, options[key])
           } else {
             // 还是个对象
+            console.log('this.formatOptions[key]', this.formatOptions[key])
             if (typeof this.formatOptions[key] === 'object') {
               // options[key] 也肯定是个对象
                 Object.keys(options[key]).forEach(subKey => {
-                  this.$set(this.formatOptions[key], subKey, options[key][subKey])
+                  let tempResult = ''
+                  if (typeof this.formatOptions[key][subKey] === 'object') {
+                    tempResult = { ...this.formatOptions[key][subKey], ...options[key][subKey]}
+                  } else {
+                    tempResult = options[key][subKey]
+                  }
+                  this.$set(this.formatOptions[key], subKey,  tempResult)
                 })
             } else {
               this.$set(this.formatOptions, key, options[key])
@@ -225,19 +239,20 @@ import formOptions from '../const/settingsOption/index.js'
           case 'stack':
             let stacks = []
             let dimensionsTemp = this.formatData.dimensions
+            // series 自定义的话要自定义完整的
             if (!this.formatOptions.series) {
               for (let i = 1; i < dimensionsTemp.length; i++) {
                 if (dimensionsTemp[i] === attr.prop) {
                   stacks.push({ type: this.chartType, stack: 'stack', prop: attr.prop })
                 } else {
-                  stacks.push({ type: this.chartType, prop: attr.prop })
+                  stacks.push({ type: this.chartType, prop: dimensionsTemp[i] })
                 }
               }
               this.$set(this.formatOptions, 'series', stacks)
             } else {
+              // series 自定义已经存在
               for (let j = 1; j < dimensionsTemp.length; j++) {
                 if (dimensionsTemp[j] === attr.prop) {
-                  console.log('dimensionsTemp[j]', dimensionsTemp[j], this.formatOptions.series)
                   if (!this.formatOptions.series[j - 1]) { // this.formatOptions.series[j - 1]还是空的配置项
                    const specialTemp = { type: this.chartType, stack: 'stack', prop: attr.prop }
                    this.$set(this.formatOptions.series, j - 1, specialTemp)
@@ -335,5 +350,8 @@ import formOptions from '../const/settingsOption/index.js'
 }
 .charts {
   margin-left: 5%;
+}
+#main {
+  width: 96%;
 }
 </style>

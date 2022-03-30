@@ -6,6 +6,7 @@ import paddingStyle from './paddingStyle.vue'
 import radio from './radio.vue'
 import collapse from './collapse.vue'
 import input from './input.vue'
+import checkbox from './checkbox.vue'
 
 const components = [
   // columnar,
@@ -15,7 +16,8 @@ const components = [
   paddingStyle,
   radio,
   collapse,
-  input
+  input,
+  checkbox
 ]
 function install (Vue) {
   components.forEach(component => {
@@ -33,5 +35,6 @@ export default {
   paddingStyle,
   radio,
   collapse,
+  checkbox,
   install
 }

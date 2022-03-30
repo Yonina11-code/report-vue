@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-  name: 'title',
+  name: 'titleSettings',
   data() {
     return {
       activeNames: 1,
@@ -104,7 +104,6 @@ export default {
       } else {
         tempObj[obj.prop][propTemp[0]] = val
       }
-      console.log('handleSaveValue', val, tempObj)
       this.$emit('setOptions', tempObj)
     }
   }

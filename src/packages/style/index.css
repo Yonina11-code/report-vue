@@ -14,7 +14,11 @@
   flex-direction: row;
   align-items: center
 }
-
+.flex-row-left {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
 .form-container {
   padding: 20px;
   height: auto;

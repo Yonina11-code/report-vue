@@ -16,4 +16,10 @@ export default {
     containLabel: true,
     height: '90%'
   },
+  tooltip: {
+    trigger: 'item'
+  },
+  toolbox: {
+    show: true
+  }
 }

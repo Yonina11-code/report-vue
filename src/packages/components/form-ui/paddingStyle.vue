@@ -29,7 +29,9 @@ export default {
   watch: {
     formInline: {
       handler (val, oldVal) {
-        this.$emit('saveValue', val)
+        if (val !== oldVal) {
+          this.$emit('saveValue', val)
+        }
       },
       deep: true,
       immediate: true

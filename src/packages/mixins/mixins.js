@@ -13,6 +13,10 @@ export default {
     data: {
       type:  [Array, Object],
       default: () => []
+    },
+    tableOptions: {
+      type:  [Array, Object],
+      default: () => []
     }
   },
   data: () => {
@@ -57,16 +61,52 @@ export default {
         if (totalOptions[key] instanceof Array) { // 合并数组配置项
           let tempArray = []
           totalOptions[key].forEach((items, index) => {
-            tempArray.push(Object.assign({}, defaultOptions[key] && defaultOptions[key][0], this.exDefault[key] && this.exDefault[key][0], this.options && this.options[key] && this.options[key][index]))
+            tempArray.push(Object.assign(
+              {},
+              defaultOptions[key] && defaultOptions[key][0],
+              this.exDefault[key] && this.exDefault[key][0],
+              this.options && this.options[key] && this.options[key][index])
+            )
           })
           this.formatOptions[key] = tempArray
         } else if (totalOptions[key] instanceof Object) { // 合并对象配置项
           // 此处使用扩展运算符会出错，例：obj === undefined, ...obj[key]---error
-          this.formatOptions[key] = Object.assign({}, defaultOptions && defaultOptions[key], this.exDefault && this.exDefault[key], this.options && this.options[key])
+          this.formatOptions[key] = Object.assign(
+            {},
+            defaultOptions && defaultOptions[key],
+            this.exDefault && this.exDefault[key],
+            this.options && this.options[key]
+          )
         } else {
           this.formatOptions[key] = this.options && this.options[key] || this.exDefault && this.exDefault[key] || defaultOptions && defaultOptions[key]
         }
       })
+      //  自定义 legend
+      totalOptions.legend  =  totalOptions.legend || {}
+      const legend = totalOptions.legend
+      legend.formatter = (name) => {
+        for (let items of this.tableOptions) {
+          if (items.prop === name) {
+            return items.label
+          }
+        }
+      }
+      // 自定义 tooltip
+      totalOptions.tooltip = totalOptions.tooltip || {}
+      const tooltip = totalOptions.tooltip
+      tooltip.formatter = (params) => {
+        let res =  ''
+        Object.keys(params.value).forEach((key, index) => {
+          for (let items of this.tableOptions) {
+            if (items.prop === key) {
+              params.value[items.label] = params.value[key]
+              delete params.value[key]
+            }
+          }
+          res +=`${params.marker}${key}: ${params.value[key]}<br/>`
+        })
+        return res
+      }
       // 如果没有配置series
       if (!this.options || !this.options.series) {
         // 返回的数据是多行多列的，若有xy轴则要对应的生成多个系列

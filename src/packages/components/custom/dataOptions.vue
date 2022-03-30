@@ -92,6 +92,7 @@ export default {
   watch: {
     type(val) {
       if (val) {
+        this.twoDimension = []
         this.formatMergeHead()
       }
     }
@@ -122,12 +123,13 @@ export default {
         twoDimension[rowIndex].map((item, index) => {
           if (curTemp.prop !== item.prop) {
             return item.disabled = true
-            console.log('twoDimension[index][colIndex]', twoDimension[index][colIndex])
-            twoDimension[index][colIndex].map((item, index) => {
-              if (curTemp.prop !== item.prop) {
-                return item.disabled = true
-              }
-            })
+          }
+        })
+        twoDimension.map((items, indexs) => {
+          for (let i = 0; i < items.length; i++) {
+            if (i === colIndex) {
+              return items[i].disabled = true
+            }
           }
         })
         this.$set(this.twoDimension, 'twoDimension', twoDimension)

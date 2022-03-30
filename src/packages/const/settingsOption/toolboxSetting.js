@@ -1,15 +1,78 @@
 export default {
   label: '工具栏',
   prop: 'toolbox',
+  width: 300,
   column: [
     {
-      label: '是否显示工具栏组件',
+      label: '是否显示保存图片工具栏组件',
       type: 'radio',
-      prop: 'show',
+      prop: 'feature.saveAsImage',
       dicData: [
         {
           label: '是',
-          value: true
+          value: {}
+        },
+        {
+          label: '否',
+          value: false
+        }
+      ]
+    },
+    {
+      label: '是否显示配置项还原工具栏组件',
+      type: 'radio',
+      prop: 'feature.restore',
+      dicData: [
+        {
+          label: '是',
+          value: {}
+        },
+        {
+          label: '否',
+          value: false
+        }
+      ]
+    },
+    {
+      label: '是否显示数据视图工具栏组件',
+      type: 'radio',
+      prop: 'feature.dataView',
+      dicData: [
+        {
+          label: '是',
+          value: {}
+        },
+        {
+          label: '否',
+          value: false
+        },
+      ]
+    },
+    {
+      label: '是否显示数据区域缩放工具栏组件',
+      type: 'radio',
+      prop: 'feature.dataZoom',
+      dicData: [
+        {
+          label: '是',
+          value: {}
+        },
+        {
+          label: '否',
+          value: false
+        }
+      ]
+    },
+    {
+      label: '是否显示动态类型切换组件',
+      type: 'radio',
+      prop: 'feature.magicType',
+      dicData: [
+        {
+          label: '是',
+          value: {
+            type: ['line', 'bar', 'stack']
+          }
         },
         {
           label: '否',

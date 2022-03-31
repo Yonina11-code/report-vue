@@ -42,7 +42,7 @@ export default [
     },
     {
       label: '坐标轴类型',
-      prop: ' type',
+      prop: 'type',
       type: 'radio',
       dicData: [
         {
@@ -65,13 +65,15 @@ export default [
     },
     {
       label: '坐标轴名称与轴线之间的距离',
-      value: 'nameGap',
-      type: 'input'
+      prop: 'axisLabel.margin',
+      type: 'input',
+      inputType: 'number'
     },
     {
       label: '坐标轴名字旋转角度',
-      value: 'nameRotate',
-      type: 'input'
+      prop: 'axisLabel.rotate',
+      type: 'input',
+      inputType: 'number'
     }
     ]
   },
@@ -119,7 +121,7 @@ export default [
       },
       {
         label: '坐标轴类型',
-        prop: ' type',
+        prop: 'type',
         type: 'radio',
         dicData: [
           {
@@ -142,13 +144,15 @@ export default [
       },
       {
         label: '坐标轴名称与轴线之间的距离',
-        value: 'nameGap',
-        type: 'input'
+        prop: 'axisLabel.margin',
+        type: 'input',
+        inputType: 'number'
       },
       {
         label: '坐标轴名字旋转角度',
-        value: 'nameRotate',
-        type: 'input'
+        prop: 'axisLabel.rotate',
+        type: 'input',
+        inputType: 'number'
       }
     ]
   }

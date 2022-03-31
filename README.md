@@ -1,24 +1,20 @@
 # vue-report
+一个通过表格数据生成自己想要的图表
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+## 快速上手
+``` javascript
+npm install y-charts-report
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+#### 引入y-charts-report
 
-### Lints and fixes files
+在main.js中写入一下内容：
+``` javascript
+  import vue from 'vue'
+  import yChartsReport from 'y-charts-report'
+  import 'y-charts-report/lib/y-charts-report.css' // 引入y-charts-report的样式
+  import * as echarts from 'echarts'
+  Vue.prototype.$echarts = echarts // 将echarts绑定在原型链上
+  Vue.use(yChartsReport)
 ```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+  y-charts-report依赖echarts并且必须将echarts绑定到原型链上

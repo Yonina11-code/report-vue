@@ -16,7 +16,10 @@ export default {
     return {
       value: ''
     }
-},
+  },
+  created () {
+    console.log('input', this.form)
+  }
 }
 </script>
 

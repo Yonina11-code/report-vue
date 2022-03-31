@@ -3,6 +3,10 @@
   "version": "1.1.16",
   "description": "根据表格数据自定义生成图表",
   "main": "lib/y-charts-report.umd.min.js",
+  "author": {
+    "name": "yangxiaotao",
+    "email": "572391370@qq.com"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -15,6 +19,7 @@
     "LICENSE",
     "types"
   ],
+  "keywords": ["echarts", "report"],
   "dependencies": {
     "core-js": "^3.6.5",
     "echarts": "^5.3.1",

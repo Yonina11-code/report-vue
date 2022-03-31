@@ -33,9 +33,23 @@ export default {
   },
   methods: {
     handleSaveValue (tab, obj, val) {
+      const propTemp = obj.prop.split('.')
       let tempObj = {}
       tempObj[tab.prop] = {}
-      tempObj[tab.prop][obj.prop] = val
+      if (propTemp.length === 2) {
+        tempObj[tab.prop][propTemp[0]] = {}
+        if (obj.inputType && obj.inputType === 'number') {
+          tempObj[tab.prop][propTemp[0]][propTemp[1]] = +val
+        } else {
+          ttempObj[tab.prop][propTemp[0]][propTemp[1]] = val
+        }
+      } else {
+        if (obj.inputType && obj.inputType === 'number') {
+          tempObj[tab.prop][obj.prop] = +val
+        } else {
+          tempObj[tab.prop][obj.prop] = val
+        }
+      }
       this.$emit('setOptions', tempObj)
     }
   }

@@ -16,7 +16,7 @@
 }
 .flex-row-left {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   justify-content: left;
 }
 .form-container {

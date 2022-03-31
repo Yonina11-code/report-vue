@@ -15,8 +15,8 @@ export default {
     roam: true,
     zomm: 2,
     itemStyle: {
-    areaColor: 'rgba(0,29,132,0.8)', // 区域颜色
-      borderColor: '#02c0ff' // 边框颜色
+    areaColor: '#f3f3f3', // 区域颜色
+      borderColor: '#fefefe' // 边框颜色
     },
     emphasis:{ // 鼠标滑入的样式
       itemStyle: {

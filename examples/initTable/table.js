@@ -8,7 +8,7 @@ export default [{
   name: 'yonina',
   yuwen: 100,
   shuxue: 100,
-  address: '湖南'
+  address: '湖南省'
 },
 {
   name: 'yxh',

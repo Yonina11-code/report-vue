@@ -4,7 +4,7 @@
       <nav-items class="main-menu" @selectMenu='selectMenu'></nav-items>
       <div class="flex-1 flex-row">
         <el-tabs class="flex-1">
-          <el-tab-pane v-for="(tab, tabIndex) in tabs" :key="tabIndex" :label="tab.label">
+          <el-tab-pane v-for="(tab, tabIndex) in filterTabs" :key="tabIndex" :label="tab.label">
             <div id="main">
             <component
               ref="dataOptions"
@@ -85,6 +85,7 @@ import formOptions from '../const/settingsOption/index.js'
           {
             label: '坐标轴',
             components: axisSettings,
+            exclude: ['y-map', 'y-pie'], // 不需要展示的图表类型
             options: formOptions.axisSetting
           },
           {
@@ -119,20 +120,27 @@ import formOptions from '../const/settingsOption/index.js'
         // this.formatOptions = {} // 配置项暂不需要重置
       }
     },
+    computed: {
+      filterTabs () {
+        return this.tabs.filter(tab => {
+          if (!tab.exclude || !tab.exclude.includes(this.componentName)) {
+            return tab
+          }
+        })
+      }
+    },
     created () {
       this.getAttributes()
     },
     methods: {
       // 配置setOption选项
       handleSetOptions (options) {
-        console.log('配置setOption选项', options)
         Object.keys(options).forEach(key => {
           let flag = Object.keys(this.formatOptions).includes(key)
           if (!flag) {
             this.$set(this.formatOptions, key, options[key])
           } else {
             // 还是个对象
-            console.log('this.formatOptions[key]', this.formatOptions[key])
             if (typeof this.formatOptions[key] === 'object') {
               // options[key] 也肯定是个对象
                 Object.keys(options[key]).forEach(subKey => {
@@ -215,7 +223,7 @@ import formOptions from '../const/settingsOption/index.js'
               })
             } else {
               if (Object.keys(this.formatData).length) {
-                this.formatData.dimensions.push(...dimensions)
+                this.formatData.dimensions.unshift(...dimensions)
               } else {
                 this.$set(this.formatData, 'dimensions', dimensions)
               }
@@ -228,13 +236,14 @@ import formOptions from '../const/settingsOption/index.js'
           case 'y':
           case 'compare':
             if (!Object.keys(this.formatData).length) {
-              this.formatData.dimensions = dimensions
-              this.formatData.source = source
+              this.$set(this.formatData, 'dimensions', dimensions)
+              this.$set(this.formatData, 'source', source)
+            } else {
+              this.formatData.dimensions.push(...dimensions)
+              this.formatData.source.forEach((item, index) => {
+                this.$set(this.formatData.source, index, { ...item, ...source[index] })
+              })
             }
-            this.formatData.dimensions.push(...dimensions)
-            this.formatData.source.forEach((item, index) => {
-              this.$set(this.formatData.source, index, { ...item, ...source[index] })
-            })
             break
           case 'stack':
             let stacks = []
@@ -273,13 +282,13 @@ import formOptions from '../const/settingsOption/index.js'
           case 'x':
           case 'category':
             this.formatData.source.forEach((item, index) => {
-              for (let value in item) {
-                if (value === attr.prop) {
-                  delete item[value]
+              for (let values in item) {
+                if (values === attr.prop) {
+                  delete item[values]
                 }
               }
             })
-            dimensions = this.formatData.dimensions.filter(item => item === attr.prop)
+            dimensions = this.formatData.dimensions.filter(item => item !== attr.prop)
             this.$set(this.formatData, 'dimensions', dimensions)
             break
           case 'y':

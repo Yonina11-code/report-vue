@@ -10,7 +10,7 @@
         <div>{{attrCol.label}}</div>
       </el-col>
       <el-col :span="4" v-for="(head, index) in tablehead.heads" :key="index+type">
-        <el-checkbox v-if="index" ref="checkbox"  :disabled="attrCol.prop === tablehead.disabled || twoDimension[attrIndex][index].disabled" @change="(value) => checkboxChange(value, attrCol, head)"></el-checkbox>
+        <el-checkbox v-if="index" ref="checkbox"  :disabled="computedDisabled(attrCol, attrIndex,index)" @change="(value) => checkboxChange(value, attrCol, head)"></el-checkbox>
       </el-col>
     </el-row>
   </div>
@@ -97,6 +97,16 @@ export default {
       }
     }
   },
+  computed: {
+    computedDisabled () {
+      return  (attrCol, attrIndex, index) => {
+        if (this.tablehead && this.twoDimension) {
+          return attrCol.prop === this.tablehead.disabled || (this.twoDimension[attrIndex][index].disabledX || this.twoDimension[attrIndex][index].disabledY)
+        }
+        return false
+    }
+    }
+  },
   created () {
   },
   methods: {
@@ -110,44 +120,47 @@ export default {
       this.handleCheckbox(value, attr, col)
     },
     handleCheckbox (value, attrCol, col) {
-      console.log('change', value, attrCol, col)
       const attr = this.attr
       const heads = this.tablehead.heads
       const twoDimension = this.twoDimension
-      console.log('handleCheckbox', this.attr, this.tablehead)
-      const rowIndex = this.attr.findIndex(item => item.prop === attrCol.prop)
+      const rowIndex = this.attr.findIndex(item => item.prop === attrCol.prop) // 所在行
+
       if (col.prop === 'x') {
         //  选择某属性为x轴时，所在的row, col都不可选
         const colIndex = this.tablehead.heads.findIndex(item => item.prop === col.prop)
         const curTemp = twoDimension[rowIndex][colIndex]
         twoDimension[rowIndex].map((item, index) => {
           if (curTemp.prop !== item.prop) {
-            return item.disabled = true
+            return item.disabledX = value
           }
         })
         twoDimension.map((items, indexs) => {
           for (let i = 0; i < items.length; i++) {
-            if (i === colIndex) {
-              return items[i].disabled = true
+            if (i === colIndex && indexs !== rowIndex) {
+              return items[i].disabledX = value
             }
           }
         })
+        console.log('twoDimension', twoDimension)
         this.$set(this.twoDimension, 'twoDimension', twoDimension)
+      } else if (col.prop === 'y'){
+        // 选择y轴时，其所在的行x轴不可选
+        const colIndex = this.tablehead.heads.findIndex(item => item.prop === 'x') // x轴所在列
+        this.$set(this.twoDimension[rowIndex][colIndex], 'disabledY', value)
       }
     },
     generatorTwoDimension () {
-      console.log('this.attr', this.attr)
       this.attr.forEach((row, rowIndex) => {
         let rows = []
         this.tablehead.heads.forEach((col, colIndex) => {
           rows.push({
             prop: `${row.prop}-${col.prop}`,
-            disabled: false
+            disabledX: false,
+            disabledY: false
             })
         })
         this.twoDimension.push(rows)
       })
-      console.log('this.twoDimension', this.twoDimension)
     }
   }
 }

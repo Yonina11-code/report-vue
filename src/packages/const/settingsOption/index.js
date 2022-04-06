@@ -5,6 +5,7 @@ import legendSetting from "./legendSetting"
 import tipsSetting from './tipsSettings'
 import toolboxSetting from "./toolboxSetting"
 import themeSettings from "./themeSettings"
+import expendSetting from "./expendSetting"
 export default {
   axisSetting,
   baseSetting,
@@ -12,5 +13,6 @@ export default {
   legendSetting,
   tipsSetting,
   toolboxSetting,
-  themeSettings
+  themeSettings,
+  expendSetting
 }

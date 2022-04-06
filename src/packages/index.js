@@ -40,5 +40,6 @@ export default {
   line,
   bar,
   viewForData,
+  autoCharts,
   install
 }

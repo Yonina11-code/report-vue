@@ -28,7 +28,7 @@ export default {
   watch: {
     data: {
       handler (val, old) { // 数据更新，相应的视图也要更新
-        console.log('watch data', val)
+        console.log('watch data', val, this.options)
         this.formatOptions = {}
         this.myChart && this.myChart.dispose()
         this.formatOptionsFunc() // 格式化数据
@@ -38,10 +38,15 @@ export default {
     },
     options: {
       handler (val, old) {
-        console.log('watch options', val)
         this.formatOptions = {}
         this.myChart && this.myChart.dispose()
-        this.formatOptionsFunc() // 格式化数据
+
+        if (val.iscover !== 'merge' && val.customOptions) {
+          this.formatOptions = val.customOptions
+          this.formatOptions.dataset = this.data
+        } else {
+          this.formatOptionsFunc() // 格式化数据
+        }
         this.draw()
       },
       deep: true

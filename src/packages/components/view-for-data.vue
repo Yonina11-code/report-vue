@@ -41,6 +41,7 @@ import baseSettings from './custom/baseSettings'
 import titleSetting from './custom/titleSetting'
 import axisSettings from './custom/axisSettings'
 import formSettings from './custom/formSettings'
+import expendSettings from './custom/expendSettings'
 import formOptions from '../const/settingsOption/index.js'
   export default {
     name: 'view-for-data',
@@ -49,7 +50,8 @@ import formOptions from '../const/settingsOption/index.js'
       dataOptions,
       titleSetting,
       axisSettings,
-      formSettings
+      formSettings,
+      expendSettings
     },
     props: {
       options: {
@@ -107,17 +109,21 @@ import formOptions from '../const/settingsOption/index.js'
           //   label: '高级',
           //   components: baseSettings
           // },
-          // {
-          //   label: '扩展插件',
-          //   components: baseSettings
-          // }
+          {
+            label: '扩展插件',
+            components: expendSettings,
+            options: formOptions.expendSetting
+          }
         ]
       }
     },
     watch: {
-      chartType (val) {
+      chartType (val, old) {
+        console.log('chartType', val, old)
         this.formatData = {}
-        // this.formatOptions = {} // 配置项暂不需要重置
+        if (old === 'map' && val !== old) {
+          this.formatOptions = {} // 配置项需要重置
+        }
       }
     },
     computed: {
@@ -135,28 +141,34 @@ import formOptions from '../const/settingsOption/index.js'
     methods: {
       // 配置setOption选项
       handleSetOptions (options) {
-        Object.keys(options).forEach(key => {
-          let flag = Object.keys(this.formatOptions).includes(key)
-          if (!flag) {
-            this.$set(this.formatOptions, key, options[key])
-          } else {
-            // 还是个对象
-            if (typeof this.formatOptions[key] === 'object') {
-              // options[key] 也肯定是个对象
-                Object.keys(options[key]).forEach(subKey => {
-                  let tempResult = ''
-                  if (typeof this.formatOptions[key][subKey] === 'object') {
-                    tempResult = { ...this.formatOptions[key][subKey], ...options[key][subKey]}
-                  } else {
-                    tempResult = options[key][subKey]
-                  }
-                  this.$set(this.formatOptions[key], subKey,  tempResult)
-                })
-            } else {
+        const  isCoverCustom = Object.keys(options).includes('customOptions') && options.iscover !== 'merge'
+        if (isCoverCustom) { // 自定义扩展插件属性
+        this.$set(this, 'formatOptions', options)
+          // this.formatOptions = options
+        } else {
+          Object.keys(options).forEach(key => {
+            let flag = Object.keys(this.formatOptions).includes(key)
+            if (!flag) {
               this.$set(this.formatOptions, key, options[key])
+            } else {
+              // 还是个对象
+              if (typeof this.formatOptions[key] === 'object') {
+                // options[key] 也肯定是个对象
+                  Object.keys(options[key]).forEach(subKey => {
+                    let tempResult = ''
+                    if (typeof this.formatOptions[key][subKey] === 'object') {
+                      tempResult = { ...this.formatOptions[key][subKey], ...options[key][subKey]}
+                    } else {
+                      tempResult = options[key][subKey]
+                    }
+                    this.$set(this.formatOptions[key], subKey,  tempResult)
+                  })
+              } else {
+                this.$set(this.formatOptions, key, options[key])
+              }
             }
-          }
-        })
+          })
+        }
       },
       // objectAssign ()
       selectMenu (index) {
@@ -195,6 +207,7 @@ import formOptions from '../const/settingsOption/index.js'
       },
       // 添加坐标轴
       coordinateAxisFormat (value, attr, col) {
+        console.log('添加坐标轴', attr, col)
         const dimensions = []
         let source = []
         dimensions.push(attr.prop)
@@ -235,6 +248,12 @@ import formOptions from '../const/settingsOption/index.js'
             break
           case 'y':
           case 'compare':
+            let series = this.formatOptions.series || []
+            series.push({
+              type: this.chartType,
+              prop: attr.prop // 加个属性标识，再移除堆叠项的时候有用
+            }),
+            this.$set(this.formatOptions, 'series', series)
             if (!Object.keys(this.formatData).length) {
               this.$set(this.formatData, 'dimensions', dimensions)
               this.$set(this.formatData, 'source', source)
@@ -276,6 +295,7 @@ import formOptions from '../const/settingsOption/index.js'
       },
       // 移除坐标轴
       removeCoordinateAxisFormat (value, attr, col) {
+        console.log('移除坐标轴', value, attr, col)
         let dimensions = []
         let source = []
         switch (col.prop) {
@@ -301,6 +321,8 @@ import formOptions from '../const/settingsOption/index.js'
                 }
               }
             })
+            let series = this.formatOptions.series.filter(item => item.prop !== attr.prop)
+            this.$set(this.formatOptions, 'series', series)
             this.$set(this.formatData, 'dimensions', dimensions)
             break
           case 'stack':
@@ -341,6 +363,7 @@ import formOptions from '../const/settingsOption/index.js'
       YSubmit () {
         console.log('导出', this.formatOptions)
         console.log('refs', this.$refs.report.formatOptions)
+        this.$emit('viewForDataExport', this.$refs.report.formatOptions)
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-input v-model="cloneValue" placeholder="请输入内容"></el-input>
+  <div v-if="options">
+    <el-input v-model="cloneValue" :type="options.inputType || 'input'" :rows="options.rows" placeholder="请输入内容"></el-input>
   </div>
 </template>
 <script>

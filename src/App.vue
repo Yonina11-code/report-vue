@@ -2,7 +2,8 @@
   <div id="app">
     <!-- <div class="flex-1 flex-row"> -->
       <!-- <div id="main" class="flex-1" style="height:400px;"></div> -->
-    <view-for-data :options="Options" :data="Data"></view-for-data>
+    <view-for-data :options="Options" :data="Data" @viewForDataExport="handleSubmit"></view-for-data>
+    <!-- <y-auto-chart :options="formatOptions"></y-auto-chart> -->
     <!-- <y-map :data="mapData" :options="mapObj"></y-map> -->
     <!-- </div> -->
 
@@ -23,10 +24,15 @@ export default {
       Options: Options,
       pieData: pieData,
       mapData: mapData,
-      mapObj: mapObj
+      mapObj: mapObj,
+      formatOptions: null
     }
   },
   methods: {
+    handleSubmit (options) {
+      console.log('....', JSON.stringify(options))
+      this.formatOptions = options
+    }
   },
   mounted () {
   }

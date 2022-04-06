@@ -3,3 +3,4 @@
 
 *  **组件**
     * [view-for-data](zh-cn/view-for-data)
+    * [y-auto-chart](zh-cn/y-auto-chart)

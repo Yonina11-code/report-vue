@@ -1,8 +1,9 @@
 <template>
   <div class="form-container">
+    <slot name="before"></slot>
     <el-form label-position='left' :label-width="(options.width || '250') + 'px'">
       <el-form-item v-for="(obj, index) in options.column" :key="index" :label="obj.label+':'" :label-width="obj.labelWith ? obj.labelWith + 'px' : ''">
-        <component class="flex-row-center" :is="'Y'+obj.type" :value="form[obj.prop]" :dicData="obj.dicData" @saveValue="(val) => handleSaveValue(obj, val)"></component>
+        <component class="flex-row-center" :is="'Y'+obj.type" :value="form[obj.prop]" :options="obj" :dicData="obj.dicData" @saveValue="(val) => handleSaveValue(obj, val)"></component>
       </el-form-item>
     </el-form>
   </div>
@@ -30,7 +31,6 @@ export default {
   methods: {
     handleSaveValue (obj, val) {
       const propTemp = obj.prop.split('.')
-      console.log('handleSaveValue', obj, val)
       let tempObj = {}
       if (propTemp.length === 2) {
          // 要特殊处理

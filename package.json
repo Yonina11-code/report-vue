@@ -1,12 +1,14 @@
 {
   "name": "y-charts-report",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "根据表格数据自定义生成图表",
   "main": "lib/y-charts-report.umd.min.js",
   "author": {
     "name": "yangxiaotao",
-    "email": "572391370@qq.com"
+    "email": "572391370@qq.com",
+    "github": "https://github.com/Yonina11-code/report-vue"
   },
+  "style": "/lib/y-charts-report.css",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

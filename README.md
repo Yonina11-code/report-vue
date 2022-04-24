@@ -18,3 +18,5 @@ npm install y-charts-report
   Vue.use(yChartsReport)
 ```
   y-charts-report依赖echarts并且必须将echarts绑定到原型链上
+
+源码地址： https://github.com/Yonina11-code/report-vue
